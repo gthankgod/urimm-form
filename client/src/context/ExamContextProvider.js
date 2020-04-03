@@ -7,7 +7,8 @@ const ExamContextProvider = (props) => {
         category: '',
         subject: '',
         year: '',
-        numberofquestions: ''
+        numberofquestions: '',
+        currentquestion: ''
     });
 
     return (

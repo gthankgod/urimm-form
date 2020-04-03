@@ -1,16 +1,45 @@
-import React, { Fragment,useState, useContext } from 'react'
+import React, { Fragment,useState, useContext, useEffect } from 'react'
 import { Modal, Button, Form, Col } from 'react-bootstrap'
 import { ExamContext } from './context/ExamContextProvider'
 
 const ShowModal = () => {
   const [show, setShow] = useState(true);
+  let [year, setYear ] =  useState([]);
+  let [subject, setSubject ] =  useState([]);
+  let [category, setCategory ] =  useState([]);
   let [ formState, setFormState ] = useState({
         category: '',
         subject: '',
         year: '',
-        numberofquestions: ''
+        numberofquestions: '',
+        currentquestion : ''
   });
 
+  useEffect(async () => { 
+    let res = await fetch('https://urimmapp.herokuapp.com/questions/type');
+    let type = await res.json();
+    let { data } = type;
+    console.log(data);
+    setCategory(data)
+  }, []);
+
+  useEffect(async () => { 
+    let res = await fetch('https://urimmapp.herokuapp.com/questions/year');
+    let year = await res.json();
+    let { data } = year;
+    console.log(data);
+    setYear(data)
+  }, []);
+
+  useEffect(async () => { 
+    let res = await fetch('https://urimmapp.herokuapp.com/questions/subject');
+    let category = await res.json();
+    let { data } = category;
+    console.log(data);
+    setSubject(data)
+  }, []);
+
+  
   let { setExam } = useContext(ExamContext);
 
   const handleClose = () => {setShow(false)};
@@ -29,7 +58,7 @@ const ShowModal = () => {
          }
 
          if(name === 'numberofquestions') {
-            setFormState({...formState, numberofquestions: value })
+            setFormState({...formState, numberofquestions: value, currentquestion: 100 / value })
          }
   }
 
@@ -44,32 +73,40 @@ const ShowModal = () => {
           <Modal.Title>Set Exam Format</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Form.Group as={Col} controlId="formGridState">
+        <Form.Group as={Col}>
               <Form.Label>Category</Form.Label>
-              <Form.Control as="select" value="Choose a category" name="category" onChange={(e) => onChangeClick(e)}>
-                <option value="PROFESSIONALS">PROFESSIONALS</option>
-                <option value="STUDENTS">STUDENTS</option>
-                <option value="TUTORS">TUTORS</option>
+              <Form.Control as="select" name="category" onChange={(e) => onChangeClick(e)}>
+                <option value="Choose a category">Choose a category</option>
+                { category.map(a => {
+                       return <option value={a.questionType} key={a._id}>{a.questionType}</option> 
+                  })
+                }
               </Form.Control>
             </Form.Group>
 
-            <Form.Group as={Col} controlId="formGridState">
+            <Form.Group as={Col}>
               <Form.Label>Subject</Form.Label>
-              <Form.Control as="select" value="Choose subject" name="subject" onChange={(e) => onChangeClick(e)} >
-                <option value="Mathematics">Mathematics</option>
-                <option value="English">English</option>
+              <Form.Control as="select" name="subject" onChange={(e) => onChangeClick(e)} >
+                <option value="Choose a subject">Choose a subject</option>
+                { subject.map(a => {
+                       return <option value={a.subject} key={a._id}>{a.subject}</option> 
+                  })
+                }
               </Form.Control>
             </Form.Group>
 
-            <Form.Group as={Col} controlId="formGridState">
+            <Form.Group as={Col}>
               <Form.Label>Year</Form.Label>
-              <Form.Control as="select" value="Choose Year" name="year" onChange={(e) => onChangeClick(e)}>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
+              <Form.Control as="select" name="year" onChange={(e) => onChangeClick(e)}>
+                <option value="Choose a year">Choose a year</option>
+                { year.map(a => {
+                       return <option value={a.year} key={a._id}>{a.year}</option> 
+                  })
+                }
               </Form.Control>
             </Form.Group>
 
-            <Form.Group as={Col} controlId="exampleForm.ControlInput1">
+            <Form.Group as={Col}>
             <Form.Label>Number of Questions</Form.Label>
                 <Form.Control type="text" name="numberofquestions" onChange={(e) => onChangeClick(e)} />
             </Form.Group>

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Form, Col, Button, ProgressBar } from 'react-bootstrap'
 import { ExamContext } from '../../context/ExamContextProvider'
+import FormDetails from './FormDetails'
 
 const FormField = () => {
     let { exam } = useContext(ExamContext);
@@ -18,8 +19,8 @@ const FormField = () => {
     }
     return (
         <Form className="mt-4">
-       <ProgressBar animated now={exam.numberofquestions} />
-
+       <ProgressBar animated now={exam.currentquestion} className="mt-4"/>
+          <FormDetails className="mt-4"/>
           <Form.Row className="mt-4">
             <Form.Group as={Col}>
               <Form.Label>Question</Form.Label>
