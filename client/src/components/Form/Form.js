@@ -37,8 +37,8 @@ const FormField = () => {
               <Form.Label>Value</Form.Label>
               <Form.Control type="text" placeholder="Add option" name="optionVal" onChange={e => onClickOpt(e)}/>
             </Form.Group>
-          < Button variant="primary btn" type="button" as={Col} onClick={onClickOptAdd} className="mt-4"> Add </Button>
           </Form.Row>
+          < Button variant="primary btn" type="button" as={Col} onClick={onClickOptAdd}> Add </Button>
 
           <ol>
           { options.map((option, index) => {

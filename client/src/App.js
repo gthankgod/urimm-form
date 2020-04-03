@@ -11,7 +11,6 @@ function App() {
         <ShowNavbar />
         <Container>
           <ShowModal />
-          <h2 className="display-4 mt-4">Upload Question</h2>
           <FormField />
         </Container>
     </ExamContextProvider> 
