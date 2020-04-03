@@ -4,48 +4,55 @@ import { ExamContext } from '../../context/ExamContextProvider'
 
 const FormField = () => {
     let { exam } = useContext(ExamContext);
-    let [optValue, setOptValue ] = useState('');
+    let [optValue, setOptValue ] = useState({ value: '', type: 'a'});
     let [options, setOptions ] = useState([]);
 
 
     const onClickOpt = (e) => {
-      setOptValue(e.target.value)
-    };
+        if (e.target.name === 'optionText') { setOptValue({ ...optValue, value: e.target.value}) };
+        if (e.target.name === 'optionVal') { setOptValue({ ...optValue, type: e.target.value}) }
+    }
 
     const onClickOptAdd = () => {
-      setOptions([...options,optValue ])
+      setOptions([...options,optValue ]);
     }
     return (
         <Form className="mt-4">
        <ProgressBar animated now={exam.numberofquestions} />
 
-          <Form.Row>
-            <Form.Group as={Col} controlId="formGridEmail">
+          <Form.Row className="mt-4">
+            <Form.Group as={Col}>
               <Form.Label>Question</Form.Label>
               <Form.Control type="text" placeholder="Add Question" />
             </Form.Group>
           </Form.Row>
 
           <Form.Row>
-            <Form.Group as={Col} controlId="formGridEmail">
-              <Form.Label>Add Options</Form.Label>
-              <Form.Control type="text" placeholder="Add option" onClick={e => onClickOpt(e)}/>
+            <Form.Group as={Col}>
+              <Form.Label>Add Option</Form.Label>
+              <Form.Control type="text" placeholder="Add option" name="optionText" onChange={e => onClickOpt(e)}/>
             </Form.Group>
-            < Button variant="primary" type="button" as={Col} onClick={onClickOptAdd}> Add </Button>
+            <Form.Group as={Col} >
+              <Form.Label>Value</Form.Label>
+              <Form.Control type="text" placeholder="Add option" name="optionVal" onChange={e => onClickOpt(e)}/>
+            </Form.Group>
+          < Button variant="primary btn" type="button" as={Col} onClick={onClickOptAdd} className="mt-4"> Add </Button>
           </Form.Row>
-          <ul>
-          { options.map(option => {
-                return <li>{option}</li>
+
+          <ol>
+          { options.map((option, index) => {
+                return <li key={index}>{option.value}</li>
              })
-          }</ul>
+          }</ol>
           <Form.File 
             id="custom-file"
             label="Add an image"
             custom
+            className="mt-4"
           />
 
 
-          <Button variant="primary btn-block" type="submit">
+          <Button variant="primary btn-block" type="submit" className="mt-4">
             Submit
           </Button>
       </Form>

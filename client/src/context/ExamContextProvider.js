@@ -10,7 +10,6 @@ const ExamContextProvider = (props) => {
         numberofquestions: ''
     });
 
-    console.log(exam);
     return (
         <ExamContext.Provider value={{ exam, setExam}}>
             {props.children}
