@@ -1,5 +1,5 @@
 import React, { Fragment,useState, useContext } from 'react'
-import { Modal, Button, Form, Col } from 'react-bootstrap'
+import { Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import { ExamContext } from './context/ExamContextProvider'
 
 const ShowModal = () => {
@@ -75,9 +75,15 @@ const ShowModal = () => {
             </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={() => { handleClose(); onSubmit() }} type="button">
-            Save Changes
-          </Button>
+          <Row>
+            <Button variant="primary" onClick={() => { handleClose(); onSubmit() }} type="button">
+              Save Changes
+            </Button>
+            <Button variant="primary" onClick={() => { handleClose(); onSubmit() }} type="button">
+              Submit Questions
+            </Button>
+          </Row>
+          
         </Modal.Footer>
       </Modal>
     </Fragment>
