@@ -4,35 +4,34 @@ import { ExamContext } from '../../context/ExamContextProvider'
 import FormDetails from './FormDetails'
 
 const FormField = () => {
-    let { exam } = useContext(ExamContext);
-    let [optValue, setOptValue ] = useState({ value: '', type: 'a'});
+    let { exam,setExam } = useContext(ExamContext);
+    let [optValue, setOptValue ] = useState({ value: '' });
     let [options, setOptions ] = useState([]);
-    let [ question, setQuestion ] = useState({
-        type: '',
-        subject: '',
-        year: '',
+    let [ Question, setQuestion ] = useState({
         question: '',
         image: '',
         options: []
     });
 
     const addQuestion = (e) => {
-      console.log(e.target.value);
-        if(e.target.name === 'question') { setQuestion({...question, question: 'great' })}
-        if(e.target.name === 'image') { setQuestion({...question, image: e.target.value })}
-        setQuestion({...question, type: exam.category, subject: exam.subject, year: exam.year, options });
+        if(e.target.name === 'question') { setQuestion({...Question, question: e.target.value })}
+        if(e.target.name === 'image') { setQuestion({...Question, image: e.target.value })}
     }
 
-    console.log(question);
-
     const onClickOpt = (e) => {
-        if (e.target.name === 'optionText') { setOptValue({ ...optValue, value: e.target.value}) };
-        if (e.target.name === 'optionVal') { setOptValue({ ...optValue, type: e.target.value}) }
+        if (e.target.name === 'optionText') { setOptValue({ value: e.target.value}) };
     }
 
     const onClickOptAdd = () => {
-      setOptions([...options,optValue ]);
+      setOptions([...options, {...optValue}]);
+      setQuestion({...Question, options: [...options, optValue]})
+    };
+
+    const submitQuestion = e => {
+        e.preventDefault();
+        setExam({...exam, questions: [...exam.questions, Question ]});
     }
+
     return (
         <Form className="mt-4">
        <ProgressBar animated now={exam.currentquestion} className="mt-4"/>
@@ -72,7 +71,7 @@ const FormField = () => {
 
           <Row>
             <Col>
-                <Button variant="primary btn-block" type="submit" className="mt-4">
+                <Button variant="primary btn-block" type="submit" className="mt-4" onClick={e => submitQuestion(e)}>
                 Add Next Question
                 </Button>
             </Col>

@@ -6,9 +6,10 @@ const ShowModal = () => {
   const [show, setShow] = useState(true);
   let [year, setYear ] =  useState([]);
   let [subject, setSubject ] =  useState([]);
-  let [category, setCategory ] =  useState([]);
+  let [type, setType ] =  useState([]);
   let [ formState, setFormState ] = useState({
         category: '',
+        type: '',
         subject: '',
         year: '',
         numberofquestions: '',
@@ -19,7 +20,7 @@ const ShowModal = () => {
     let res = await fetch('https://urimmapp.herokuapp.com/questions/type');
     let type = await res.json();
     let { data } = type;
-    setCategory(data)
+    setType(data)
   }, []);
 
   useEffect(async () => { 
@@ -36,15 +37,19 @@ const ShowModal = () => {
     setSubject(data)
   }, []);
 
-  
-  let { setExam } = useContext(ExamContext);
+
+  let { exam, setExam } = useContext(ExamContext);
 
   const handleClose = () => {setShow(false)};
   const onChangeClick = ({ target }) => {
     let { name, value } = target;
-      if(name === 'category') {
-        setFormState({...formState, category: value })
-        }
+        if(name === 'category') {
+          setFormState({...formState, category: value })
+          }
+
+        if(name === 'type') {
+          setFormState({...formState, type: value })
+          }
 
         if(name === 'year') {
             setFormState({...formState, year: value })
@@ -60,7 +65,7 @@ const ShowModal = () => {
   }
 
   const onSubmit = () => {
-      setExam(formState);
+      setExam({...exam,...formState});
   }
     return (
     <Fragment>
@@ -70,11 +75,20 @@ const ShowModal = () => {
           <Modal.Title>Set Exam Format</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Form.Group as={Col}>
+            <Form.Group as={Col}>
               <Form.Label>Category</Form.Label>
               <Form.Control as="select" name="category" onChange={(e) => onChangeClick(e)}>
                 <option value="Choose a category">Choose a category</option>
-                { category.map(a => {
+                <option value="PROFESSIONAL">PROFESSIONAL</option>
+                <option value="STUDENT">STUDENT</option>
+                <option value="TUTOR">TUTOR</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Label>Exam Type</Form.Label>
+              <Form.Control as="select" name="type" onChange={(e) => onChangeClick(e)}>
+                <option value="Choose a category">Choose a category</option>
+                { type.map(a => {
                        return <option value={a.questionType} key={a._id}>{a.questionType}</option> 
                   })
                 }

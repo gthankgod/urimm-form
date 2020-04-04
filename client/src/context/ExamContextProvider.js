@@ -5,12 +5,15 @@ export const ExamContext = createContext();
 const ExamContextProvider = (props) => {
     let [exam, setExam ] = useState({
         category: '',
+        type: '',
         subject: '',
         year: '',
         questions: [],
         numberofquestions: '',
         currentquestion: ''
     });
+
+    console.log(exam);
 
     return (
         <ExamContext.Provider value={{ exam, setExam}}>
