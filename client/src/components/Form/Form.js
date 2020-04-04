@@ -29,7 +29,7 @@ const FormField = () => {
 
     const submitQuestion = e => {
         e.preventDefault();
-        setExam({...exam, questions: [...exam.questions, Question ]});
+        setExam({...exam, questions: [...exam.questions, Question ], currentquestion: exam.currentquestion + exam.current });
     }
 
     return (
@@ -69,18 +69,17 @@ const FormField = () => {
             className="mt-4"
           />
 
-          <Row>
-            <Col>
+            {exam.questions.length !== 100 / exam.current ? (
+              <Col>
                 <Button variant="primary btn-block" type="submit" className="mt-4" onClick={e => submitQuestion(e)}>
                 Add Next Question
                 </Button>
-            </Col>
-            <Col>
-                <Button variant="success btn-block" type="submit" className="mt-4">
-                Preview and Submit
-                </Button>
-            </Col>
-          </Row>
+             </Col>
+            ) : (
+                <Button variant="success btn-block" type="submit" className="mt-4"> Preview and Submit</Button>
+            ) 
+            }
+            
           
       </Form>
     )

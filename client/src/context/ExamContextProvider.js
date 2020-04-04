@@ -10,7 +10,8 @@ const ExamContextProvider = (props) => {
         year: '',
         questions: [],
         numberofquestions: '',
-        currentquestion: ''
+        currentquestion: '',
+        current: ''
     });
 
     console.log(exam);

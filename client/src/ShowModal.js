@@ -60,7 +60,7 @@ const ShowModal = () => {
          }
 
          if(name === 'numberofquestions') {
-            setFormState({...formState, numberofquestions: value, currentquestion: 100 / value })
+            setFormState({...formState, numberofquestions: value, currentquestion: 100 / value, current: 100 / value })
          }
   }
 
