@@ -19,7 +19,6 @@ const ShowModal = () => {
     let res = await fetch('https://urimmapp.herokuapp.com/questions/type');
     let type = await res.json();
     let { data } = type;
-    console.log(data);
     setCategory(data)
   }, []);
 
@@ -27,7 +26,6 @@ const ShowModal = () => {
     let res = await fetch('https://urimmapp.herokuapp.com/questions/year');
     let year = await res.json();
     let { data } = year;
-    console.log(data);
     setYear(data)
   }, []);
 
@@ -35,7 +33,6 @@ const ShowModal = () => {
     let res = await fetch('https://urimmapp.herokuapp.com/questions/subject');
     let category = await res.json();
     let { data } = category;
-    console.log(data);
     setSubject(data)
   }, []);
 

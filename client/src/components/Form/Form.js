@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Form, Col, Button, ProgressBar } from 'react-bootstrap'
+import { Form, Col, Button, ProgressBar,Row } from 'react-bootstrap'
 import { ExamContext } from '../../context/ExamContextProvider'
 import FormDetails from './FormDetails'
 
@@ -7,7 +7,23 @@ const FormField = () => {
     let { exam } = useContext(ExamContext);
     let [optValue, setOptValue ] = useState({ value: '', type: 'a'});
     let [options, setOptions ] = useState([]);
+    let [ question, setQuestion ] = useState({
+        type: '',
+        subject: '',
+        year: '',
+        question: '',
+        image: '',
+        options: []
+    });
 
+    const addQuestion = (e) => {
+      console.log(e.target.value);
+        if(e.target.name === 'question') { setQuestion({...question, question: 'great' })}
+        if(e.target.name === 'image') { setQuestion({...question, image: e.target.value })}
+        setQuestion({...question, type: exam.category, subject: exam.subject, year: exam.year, options });
+    }
+
+    console.log(question);
 
     const onClickOpt = (e) => {
         if (e.target.name === 'optionText') { setOptValue({ ...optValue, value: e.target.value}) };
@@ -24,38 +40,49 @@ const FormField = () => {
           <Form.Row className="mt-4">
             <Form.Group as={Col}>
               <Form.Label>Question</Form.Label>
-              <Form.Control type="text" placeholder="Add Question" />
+              <Form.Control type="text" placeholder="Add question" name="question" onChange={e => addQuestion(e)} />
             </Form.Group>
           </Form.Row>
 
-          <Form.Row>
-            <Form.Group as={Col}>
+            <Form.Group>
               <Form.Label>Add Option</Form.Label>
-              <Form.Control type="text" placeholder="Add option" name="optionText" onChange={e => onClickOpt(e)}/>
+              <Row>
+                <Col sm={9}>
+                  <Form.Control type="text" placeholder="Add option" name="optionText" onChange={e => onClickOpt(e)}/>
+                </Col>
+                <Col sm={3}>
+                  < Button variant="danger btn-block" type="button" onClick={onClickOptAdd}> Add </Button>
+                </Col>
+              </Row>
             </Form.Group>
-            <Form.Group as={Col} >
-              <Form.Label>Value</Form.Label>
-              <Form.Control type="text" placeholder="Add option" name="optionVal" onChange={e => onClickOpt(e)}/>
-            </Form.Group>
-          </Form.Row>
-          < Button variant="primary btn" type="button" as={Col} onClick={onClickOptAdd}> Add </Button>
+          
+          
 
           <ol>
           { options.map((option, index) => {
-                return <li key={index}>{option.value}</li>
+                return <li key={index} type="a">{option.value}</li>
              })
           }</ol>
           <Form.File 
-            id="custom-file"
+            name="image"
             label="Add an image"
             custom
             className="mt-4"
           />
 
-
-          <Button variant="primary btn-block" type="submit" className="mt-4">
-            Submit
-          </Button>
+          <Row>
+            <Col>
+                <Button variant="primary btn-block" type="submit" className="mt-4">
+                Add Next Question
+                </Button>
+            </Col>
+            <Col>
+                <Button variant="success btn-block" type="submit" className="mt-4">
+                Preview and Submit
+                </Button>
+            </Col>
+          </Row>
+          
       </Form>
     )
 }
