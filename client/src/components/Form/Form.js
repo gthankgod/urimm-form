@@ -48,7 +48,6 @@ const FormField = (props) => {
       props.history.push('/success');
     }
 
-    console.log(exam);
     return (
         <Fragment>
           <ShowModal />
