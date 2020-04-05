@@ -7,7 +7,7 @@ import FormDetails from './FormDetails'
 
 const FormField = () => {
     let { exam,setExam, submitExam } = useContext(ExamContext);
-    let [optValue, setOptValue ] = useState({ value: '', explanation: '', status: '' });
+    let [optValue, setOptValue ] = useState({ value: '', explanation: '', status: false });
     let [options, setOptions ] = useState([]);
     let [ Question, setQuestion ] = useState({
         question: '',
@@ -22,6 +22,7 @@ const FormField = () => {
 
     const onClickOpt = (e) => {
         if (e.target.name === 'optionText') { setOptValue({ ...optValue, value: e.target.value}) };
+        if (e.target.name === 'optStatus') { setOptValue({ ...optValue, status: e.target.value}) };
     }
 
     const onClickOptAdd = () => {
@@ -56,8 +57,16 @@ const FormField = () => {
                   <Form.Group>
                     <Form.Label>Add Option</Form.Label>
                     <Row>
-                      <Col sm={9}>
+                      <Col sm={8} className="mb-3">
                         <Form.Control type="text" placeholder="Add option" name="optionText" onChange={e => onClickOpt(e)}/>
+                      </Col>
+                      <Col sm={3}>
+                      <Form.Control as="select" name="status" onChange={(e) => onClickOpt(e)} >
+                      <option value="Select Option Status">Select Option Status</option>
+                      <option value="True">True</option>
+                      <option value="False">False</option>
+                      
+                    </Form.Control>
                       </Col>
                       <Col sm={3}>
                         < Button variant="danger btn-block" type="button" onClick={onClickOptAdd}> Add </Button>

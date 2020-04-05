@@ -133,7 +133,7 @@ const ShowModal = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={() => { handleClose(); onSubmit() }} type="button">
-            Save Changes
+            Add Exam Details
           </Button>
         </Modal.Footer>
       </Modal>
