@@ -1,18 +1,24 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
-import FormField from './components/Form/Form';
-import ShowModal from './ShowModal';
 import ShowNavbar from './components/ShowNavBar'
 import ExamContextProvider from './context/ExamContextProvider'
+import Success from './components/Success'
+import Form from './components/Form/Form'
 
 function App() {
   return (
     <ExamContextProvider>
+      <Router>
         <ShowNavbar />
-        <Container>
-          <ShowModal />
-          <FormField />
-        </Container>
+          <Container>
+          <Switch>
+            <Route exact path="/success" component={Success} />
+            <Route exact path="/" component={Form} />
+          </Switch>
+          </Container>
+      </Router>
+        
     </ExamContextProvider> 
   );
 }

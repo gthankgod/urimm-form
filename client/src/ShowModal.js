@@ -4,17 +4,25 @@ import { ExamContext } from './context/ExamContextProvider'
 
 const ShowModal = () => {
   const [show, setShow] = useState(true);
+  let [category, setCategory ] =  useState([]);
   let [year, setYear ] =  useState([]);
   let [subject, setSubject ] =  useState([]);
   let [type, setType ] =  useState([]);
   let [ formState, setFormState ] = useState({
         category: '',
-        type: '',
+        questionType: '',
         subject: '',
         year: '',
         numberofquestions: '',
         currentquestion : ''
   });
+
+  useEffect(async () => { 
+    let res = await fetch('https://urimmapp.herokuapp.com/questions/category');
+    let category = await res.json();
+    let { data } = category;
+    setCategory(data)
+  }, []);
 
   useEffect(async () => { 
     let res = await fetch('https://urimmapp.herokuapp.com/questions/type');
@@ -48,7 +56,7 @@ const ShowModal = () => {
           }
 
         if(name === 'type') {
-          setFormState({...formState, type: value })
+          setFormState({...formState, questionType: value })
           }
 
         if(name === 'year') {
@@ -79,9 +87,10 @@ const ShowModal = () => {
               <Form.Label>Category</Form.Label>
               <Form.Control as="select" name="category" onChange={(e) => onChangeClick(e)}>
                 <option value="Choose a category">Choose a category</option>
-                <option value="PROFESSIONAL">PROFESSIONAL</option>
-                <option value="STUDENT">STUDENT</option>
-                <option value="TUTOR">TUTOR</option>
+                { category.map(a => {
+                       return <option value={a.category} key={a._id}>{a.category}</option> 
+                  })
+                }
               </Form.Control>
             </Form.Group>
             <Form.Group as={Col}>

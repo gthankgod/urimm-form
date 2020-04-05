@@ -17,7 +17,8 @@ const FormDetails = () => {
                             <Card.Text> Year: { exam.year }</Card.Text>
                         </Col>
                         <Col>
-                             <Card.Text> Number of questions : { exam.numberofquestions}</Card.Text>
+                             <Card.Text>Total number of questions : { exam.numberofquestions}</Card.Text>
+                             {/* <Card.Text> Number of questions remaining : { exam.currentquestion / exam.numberofquestions }</Card.Text> */}
                         </Col>
                     </Row>
                 </Card.Body>
