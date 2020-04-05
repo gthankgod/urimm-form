@@ -1,13 +1,12 @@
 import React, { useContext, useState, Fragment } from 'react'
-import { Redirect } from 'react-router-dom'
 import { Form, Col, Button, ProgressBar,Row } from 'react-bootstrap'
 import { ExamContext } from '../../context/ExamContextProvider'
 import ShowModal from '../../ShowModal';
 import FormDetails from './FormDetails'
 
-const FormField = () => {
+const FormField = (props) => {
     let { exam,setExam, submitExam } = useContext(ExamContext);
-    let [optValue, setOptValue ] = useState({ value: '', explanation: '', status: false });
+    let [optValue, setOptValue ] = useState({ value: '', explanation: '', status: "" });
     let [options, setOptions ] = useState([]);
     let [ Question, setQuestion ] = useState({
         question: '',
@@ -23,24 +22,33 @@ const FormField = () => {
     const onClickOpt = (e) => {
         if (e.target.name === 'optionText') { setOptValue({ ...optValue, value: e.target.value}) };
         if (e.target.name === 'optStatus') { setOptValue({ ...optValue, status: e.target.value}) };
+        if (e.target.name === 'optionExp') { setOptValue({ ...optValue, explanation: e.target.value}) };
     }
 
     const onClickOptAdd = () => {
       setOptions([...options, {...optValue}]);
-      setQuestion({...Question, options: [...options, optValue]})
+      setQuestion({...Question, options: [...options, optValue]});
+      setOptValue({ value: '', explanation: '', status: "" });
     };
 
     const submitQuestion = e => {
         e.preventDefault();
         setExam({...exam, questions: [...exam.questions, Question ], currentquestion: exam.currentquestion + exam.current });
+        setQuestion({
+          question: '',
+          image: '',
+          options: []
+      });
+        setOptions([]);
     }
 
     const subExamQuestion = e => {
       e.preventDefault();
       submitExam();
-      // <Redirect to="/success" /> 
+      props.history.push('/success');
     }
 
+    console.log(exam);
     return (
         <Fragment>
           <ShowModal />
@@ -50,21 +58,24 @@ const FormField = () => {
                 <Form.Row className="mt-4">
                   <Form.Group as={Col}>
                     <Form.Label>Question</Form.Label>
-                    <Form.Control type="text" placeholder="Add question" name="question" onChange={e => addQuestion(e)} />
+                    <Form.Control type="text" placeholder="Add question" name="question" value={Question.question} onChange={e => addQuestion(e)} />
                   </Form.Group>
                 </Form.Row>
 
                   <Form.Group>
                     <Form.Label>Add Option</Form.Label>
                     <Row>
-                      <Col sm={8} className="mb-3">
-                        <Form.Control type="text" placeholder="Add option" name="optionText" onChange={e => onClickOpt(e)}/>
+                      <Col sm={6} className="mb-3">
+                        <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/>
+                      </Col>
+                      <Col sm={6} className="mb-3">
+                        <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
                       </Col>
                       <Col sm={3}>
-                      <Form.Control as="select" name="status" onChange={(e) => onClickOpt(e)} >
-                      <option value="Select Option Status">Select Option Status</option>
-                      <option value="True">True</option>
-                      <option value="False">False</option>
+                      <Form.Control as="select" name="optStatus" onChange={(e) => onClickOpt(e)} >
+                      <option value="Select Option Status">Select status</option>
+                      <option value="Correct">Correct</option>
+                      <option value="Incorrect">Incorrect</option>
                       
                     </Form.Control>
                       </Col>
@@ -78,7 +89,13 @@ const FormField = () => {
 
                 <ol>
                 { options.map((option, index) => {
-                      return <li key={index} type="a">{option.value}</li>
+                      return <li key={index} type="a">
+                                <Row>
+                                  <Col>{option.value}</Col>
+                                  <Col>{option.explanation}</Col>
+                                  <Col>{option.status}</Col>
+                                </Row>
+                            </li>
                   })
                 }</ol>
                 <Form.File 

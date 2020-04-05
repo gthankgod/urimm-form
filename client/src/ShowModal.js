@@ -17,32 +17,41 @@ const ShowModal = () => {
         currentquestion : ''
   });
 
-  useEffect(async () => { 
-    let res = await fetch('https://urimmapp.herokuapp.com/questions/category');
-    let category = await res.json();
-    let { data } = category;
-    setCategory(data)
+  useEffect(() => { 
+    (async function() {
+      let res = await fetch('https://urimmapp.herokuapp.com/questions/category');
+      let category = await res.json();
+      let { data } = category;
+      setCategory(data)
+    })() 
   }, []);
 
-  useEffect(async () => { 
-    let res = await fetch('https://urimmapp.herokuapp.com/questions/type');
-    let type = await res.json();
-    let { data } = type;
-    setType(data)
+  useEffect(() => { 
+    (async function () {
+      let res = await fetch('https://urimmapp.herokuapp.com/questions/type');
+      let type = await res.json();
+      let { data } = type;
+      setType(data)
+    })()  
   }, []);
 
-  useEffect(async () => { 
-    let res = await fetch('https://urimmapp.herokuapp.com/questions/year');
-    let year = await res.json();
-    let { data } = year;
-    setYear(data)
+  useEffect(() => { 
+    (async function () {
+      let res = await fetch('https://urimmapp.herokuapp.com/questions/year');
+      let year = await res.json();
+      let { data } = year;
+      setYear(data)
+    })() 
   }, []);
 
-  useEffect(async () => { 
-    let res = await fetch('https://urimmapp.herokuapp.com/questions/subject');
-    let category = await res.json();
-    let { data } = category;
-    setSubject(data)
+  useEffect(() => { 
+    (async function () {
+      let res = await fetch('https://urimmapp.herokuapp.com/questions/subject');
+      let category = await res.json();
+      let { data } = category;
+      setSubject(data)
+    })()
+    
   }, []);
 
 
