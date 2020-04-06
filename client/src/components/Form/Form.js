@@ -5,7 +5,7 @@ import ShowModal from '../../ShowModal';
 import FormDetails from './FormDetails'
 
 const FormField = (props) => {
-    let { exam,setExam, submitExam } = useContext(ExamContext);
+    let { exam,setExam } = useContext(ExamContext);
     let [optValue, setOptValue ] = useState({ value: '', explanation: '', status: "" });
     let [options, setOptions ] = useState([]);
     let [ Question, setQuestion ] = useState({
@@ -44,8 +44,7 @@ const FormField = (props) => {
 
     const subExamQuestion = e => {
       e.preventDefault();
-      submitExam();
-      props.history.push('/success');
+      props.history.push('/preview');
     }
 
     return (

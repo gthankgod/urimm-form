@@ -57,7 +57,12 @@ const ShowModal = () => {
 
   let { exam, setExam } = useContext(ExamContext);
 
-  const handleClose = () => {setShow(false)};
+  const handleClose = () => {
+    if(!formState.category || !formState.questionType || !formState.year || !formState.category || !formState.numberofquestions) {
+      return 
+    }
+    setShow(false)
+  };
   const onChangeClick = ({ target }) => {
     let { name, value } = target;
         if(name === 'category') {
@@ -137,7 +142,7 @@ const ShowModal = () => {
 
             <Form.Group as={Col}>
             <Form.Label>Number of Questions</Form.Label>
-                <Form.Control type="text" name="numberofquestions" onChange={(e) => onChangeClick(e)} />
+                <Form.Control type="number" name="numberofquestions" onChange={(e) => onChangeClick(e)} />
             </Form.Group>
         </Modal.Body>
         <Modal.Footer>

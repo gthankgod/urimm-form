@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react'
-import { Redirect } from 'react-router-dom'
 
 export const ExamContext = createContext();
 
@@ -24,7 +23,7 @@ const ExamContextProvider = (props) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(examRequest)
         });
-        const data = await res.json();
+         await res.json();
         // setExam({...exam, respMessage: data.status });
         // console.log(exam.respMessage); 
 
