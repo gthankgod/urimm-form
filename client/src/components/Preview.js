@@ -11,7 +11,7 @@ const SuccessPage = (props) => {
            return (<ListGroup.Item key={i} className="mb-3">
                <Row className="mb-3">
                    <Col xs={10}>{question.question}</Col>
-                   <Col xs={2}><Link to={{ pathname: `/${i}`, state: { question }}}><i className="fa fa-pencil-square-o"></i></Link></Col>
+                   <Col xs={2}><Link to={{ pathname: `/${i}`, state: { id: i,question }}}><i className="fa fa-pencil-square-o"></i></Link></Col>
                </Row>
                 <ListGroup>
                     {question.options.map((option, index )=> <ListGroup.Item key={index}>{option.value} </ListGroup.Item>)}
