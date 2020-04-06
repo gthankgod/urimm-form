@@ -16,7 +16,7 @@ const FormField = (props) => {
 
     const addQuestion = (e) => {
         if(e.target.name === 'question') { setQuestion({...Question, question: e.target.value })}
-        if(e.target.name === 'image') { setQuestion({...Question, image: e.target.value })}
+        if(e.target.name === 'image') { console.log(e.target.value) }
     }
 
     const onClickOpt = (e) => {
@@ -56,17 +56,17 @@ const FormField = (props) => {
                 <Form.Row className="mt-4">
                   <Form.Group as={Col}>
                     <Form.Label>Question</Form.Label>
-                    <Form.Control type="text" placeholder="Add question" name="question" value={Question.question} onChange={e => addQuestion(e)} />
+                    <Form.Control as="textarea" rows="3" placeholder="Add question" name="question" value={Question.question} onChange={e => addQuestion(e)} />
                   </Form.Group>
                 </Form.Row>
 
                   <Form.Group>
                     <Form.Label>Add Option</Form.Label>
                     <Row>
-                      <Col sm={6} className="mb-3">
+                      <Col sm={12} className="mb-3">
                         <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/>
                       </Col>
-                      <Col sm={6} className="mb-3">
+                      <Col sm={9} className="mb-3">
                         <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
                       </Col>
                       <Col sm={3}>
