@@ -1,6 +1,7 @@
 import React, { Fragment,useState, useContext, useEffect } from 'react'
 import { Modal, Button, Form, Col } from 'react-bootstrap'
 import { ExamContext } from './context/ExamContextProvider'
+import ToastMsg from './components/Form/ToastMsg';
 
 const ShowModal = () => {
   const [show, setShow] = useState(true);
@@ -15,6 +16,11 @@ const ShowModal = () => {
         year: '',
         numberofquestions: '',
         currentquestion : ''
+  });
+
+  let [ error, setError ] = useState({
+      status : false,
+      msg: ""
   });
 
   useEffect(() => { 
@@ -58,11 +64,29 @@ const ShowModal = () => {
   let { exam, setExam } = useContext(ExamContext);
 
   const handleClose = () => {
-    if(!formState.category || !formState.questionType || !formState.year || !formState.category || !formState.numberofquestions) {
-      return 
+    if(!formState.category) {
+      setError({ status: true, msg: 'Category is not properly formatted' });
+      setTimeout(() => setError({ status: false, msg: "" }), 5000);
+      return
+    }
+    if(!formState.questionType) {
+      setError({ status: true, msg: 'Question type is not properly formatted' });
+      setTimeout(() => setError({ status: false, msg: "" }), 5000);
+      return
+    }
+    if(!formState.year) {
+      setError({ status: true, msg: 'Year is not properly formatted' });
+      setTimeout(() => setError({ status: false, msg: "" }), 5000);
+      return
+    }
+    if(!formState.numberofquestions || formState.numberofquestions < 1 ) {
+      setError({ status: true, msg: 'Number of Questions is not properly formatted' });
+      setTimeout(() => setError({ status: false, msg: "" }), 5000);
+      return
     }
     setShow(false)
   };
+  
   const onChangeClick = ({ target }) => {
     let { name, value } = target;
         if(name === 'category') {
@@ -96,6 +120,7 @@ const ShowModal = () => {
         <Modal.Header closeButton>
           <Modal.Title>Set Exam Format</Modal.Title>
         </Modal.Header>
+        {error.status ? <ToastMsg msg={error.msg}/> : null}
         <Modal.Body>
             <Form.Group as={Col}>
               <Form.Label>Category</Form.Label>

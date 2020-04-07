@@ -3,6 +3,7 @@ import { Form, Col, Button, ProgressBar,Row } from 'react-bootstrap'
 import { ExamContext } from '../../context/ExamContextProvider'
 import ShowModal from '../../ShowModal';
 import FormDetails from './FormDetails'
+import ToastMsg from './ToastMsg'
 
 const FormField = (props) => {
     let { exam,setExam } = useContext(ExamContext);
@@ -14,6 +15,8 @@ const FormField = (props) => {
         options: []
     });
 
+
+    let [ error, setError ] = useState({ status : false, msg: "" });
     const addQuestion = (e) => {
         if(e.target.name === 'question') { setQuestion({...Question, question: e.target.value })}
         if(e.target.name === 'image') { console.log(e.target.value) }
@@ -26,7 +29,13 @@ const FormField = (props) => {
     }
 
     const onClickOptAdd = () => {
-      if(!optValue.value || !optValue.status) { return }
+      if(!optValue.value && !optValue.status) {
+        setError({ status: true, msg: 'Option is not properly formatted' });
+        setTimeout(() => setError({ status: false, msg: "" }), 5000);
+        return
+      }
+
+
       setOptions([...options, {...optValue}]);
       setQuestion({...Question, options: [...options, optValue]});
       setOptValue({ value: '', explanation: '', status: "" });
@@ -34,7 +43,18 @@ const FormField = (props) => {
 
     const submitQuestion = e => {
         e.preventDefault();
-        if(!Question.question || !Question.options.length > 1 ){ return }  
+        if(!Question.question) {
+          setError({ status: true, msg: 'Option status cannot be empty' });
+          setTimeout(() => setError({ status: false, msg: "" }), 5000);
+          return
+        } 
+        
+        if(Question.options.length < 2) {
+          setError({ status: true, msg: 'There must be at least two options' });
+          setTimeout(() => setError({ status: false, msg: "" }), 5000);
+          return
+        }
+         
         setExam({...exam, questions: [...exam.questions, Question ], currentquestion: exam.currentquestion + exam.current });
         setQuestion({
           question: '',
@@ -54,6 +74,7 @@ const FormField = (props) => {
           <ShowModal />
             <Form className="mt-4">
             <ProgressBar animated now={exam.currentquestion - exam.current} className="mt-4"/>
+            {error.status ? <ToastMsg msg={error.msg}/> : null}
                 <FormDetails className="mt-4"/>
                 <Form.Row className="mt-4">
                   <Form.Group as={Col}>
