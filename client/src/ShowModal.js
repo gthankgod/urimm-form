@@ -142,7 +142,7 @@ const ShowModal = () => {
 
             <Form.Group as={Col}>
             <Form.Label>Number of Questions</Form.Label>
-                <Form.Control type="number" name="numberofquestions" onChange={(e) => onChangeClick(e)} />
+                <Form.Control type="text" name="numberofquestions" onChange={(e) => onChangeClick(e)} />
             </Form.Group>
         </Modal.Body>
         <Modal.Footer>

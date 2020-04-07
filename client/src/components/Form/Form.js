@@ -72,7 +72,7 @@ const FormField = (props) => {
                         <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
                       </Col>
                       <Col sm={3}>
-                      <Form.Control as="select" name="optStatus" onChange={(e) => onClickOpt(e)} >
+                      <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} >
                       <option value="Select Option Status">Select status</option>
                       <option value="Correct">Correct</option>
                       <option value="Incorrect">Incorrect</option>
