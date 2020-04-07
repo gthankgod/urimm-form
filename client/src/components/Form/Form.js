@@ -20,12 +20,13 @@ const FormField = (props) => {
     }
 
     const onClickOpt = (e) => {
-        if (e.target.name === 'optionText') { setOptValue({ ...optValue, value: e.target.value}) };
+        if (e.target.name === 'optionText' ) { setOptValue({ ...optValue, value: e.target.value}) };
         if (e.target.name === 'optStatus') { setOptValue({ ...optValue, status: e.target.value}) };
         if (e.target.name === 'optionExp') { setOptValue({ ...optValue, explanation: e.target.value}) };
     }
 
     const onClickOptAdd = () => {
+      if(!optValue.value || !optValue.status) { return }
       setOptions([...options, {...optValue}]);
       setQuestion({...Question, options: [...options, optValue]});
       setOptValue({ value: '', explanation: '', status: "" });
@@ -33,6 +34,7 @@ const FormField = (props) => {
 
     const submitQuestion = e => {
         e.preventDefault();
+        if(!Question.question || !Question.options.length > 1 ){ return }  
         setExam({...exam, questions: [...exam.questions, Question ], currentquestion: exam.currentquestion + exam.current });
         setQuestion({
           question: '',
