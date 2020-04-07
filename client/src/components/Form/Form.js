@@ -29,7 +29,7 @@ const FormField = (props) => {
     }
 
     const onClickOptAdd = () => {
-      if(!optValue.value && !optValue.status) {
+      if(!optValue.value || !optValue.status) {
         setError({ status: true, msg: 'Option is not properly formatted' });
         setTimeout(() => setError({ status: false, msg: "" }), 5000);
         return
