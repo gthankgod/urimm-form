@@ -86,7 +86,7 @@ const ShowModal = () => {
     }
     setShow(false)
   };
-  
+
   const onChangeClick = ({ target }) => {
     let { name, value } = target;
         if(name === 'category') {
@@ -135,7 +135,7 @@ const ShowModal = () => {
             <Form.Group as={Col}>
               <Form.Label>Exam Type</Form.Label>
               <Form.Control as="select" name="type" onChange={(e) => onChangeClick(e)}>
-                <option value="Choose a category">Choose a category</option>
+                <option value="Choose a category">Choose exam type</option>
                 { type.map(a => {
                        return <option value={a.questionType} key={a._id}>{a.questionType}</option> 
                   })
