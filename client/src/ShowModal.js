@@ -14,6 +14,14 @@ const ShowModal = () => {
         questionType: '',
         subject: '',
         year: '',
+        meta: {
+          firstCategory: '',
+          school: '',
+          faculty: '',
+          department: '',
+          totalScore: '',
+          expectedScore: ''
+        },
         numberofquestions: '',
         currentquestion : ''
   });
@@ -108,8 +116,32 @@ const ShowModal = () => {
          if(name === 'numberofquestions') {
             setFormState({...formState, numberofquestions: value, currentquestion: 100 / value, current: 100 / value })
          }
-  }
 
+         if(name === 'firstCategory') {
+            setFormState({...formState, meta: {...formState.meta, firstCategory: value } })
+         }
+
+       if(name === 'school') {
+           setFormState({...formState, meta: {...formState.meta, school: value } })
+         }
+
+      if(name === 'faculty') {
+          setFormState({...formState, meta: {...formState.meta, faculty: value } })
+        }
+
+        if(name === 'department') {
+          setFormState({...formState, meta: {...formState.meta, department: value } })
+        }
+
+        if(name === 'totalScore') {
+          setFormState({...formState, meta: {...formState.meta, totalScore: value } })
+        }
+
+        if(name === 'expectedScore') {
+          setFormState({...formState, meta: {...formState.meta, expectedScore: value } })
+        }
+  }
+console.log(formState);
   const onSubmit = () => {
       setExam({...exam,...formState});
   }
@@ -132,27 +164,42 @@ const ShowModal = () => {
                 }
               </Form.Control>
             </Form.Group>
-            <Form.Group as={Col}>
-              <Form.Label>Exam Type</Form.Label>
-              <Form.Control as="select" name="type" onChange={(e) => onChangeClick(e)}>
-                <option value="Choose a category">Choose exam type</option>
-                { type.map(a => {
-                       return <option value={a.questionType} key={a._id}>{a.questionType}</option> 
-                  })
-                }
+            { formState.category === 'STUDENT' ? (
+              <Form.Group as={Col}>
+              <Form.Label>Choose a subcategory</Form.Label>
+              <Form.Control as="select" name="firstCategory" onChange={(e) => onChangeClick(e)}>
+                <option value="Choose a firstcategory">Choose a sub Category</option>
+                <option value="UNIVERSITY">UNIVERSITY</option>
+                <option value="SECONDARY SCHOOL">SECONDARY SCHOOL</option>
               </Form.Control>
             </Form.Group>
-
-            <Form.Group as={Col}>
-              <Form.Label>Subject</Form.Label>
-              <Form.Control as="select" name="subject" onChange={(e) => onChangeClick(e)} >
-                <option value="Choose a subject">Choose a subject</option>
-                { subject.map(a => {
-                       return <option value={a.subject} key={a._id}>{a.subject}</option> 
-                  })
-                }
-              </Form.Control>
-            </Form.Group>
+            ) : null }
+            { formState.meta.firstCategory === 'SECONDARY SCHOOL' ? (
+              <Fragment>
+                <Form.Group as={Col}>
+                <Form.Label>Exam Type</Form.Label>
+                <Form.Control as="select" name="type" onChange={(e) => onChangeClick(e)}>
+                  <option value="Choose the Exam type">Choose exam type</option>
+                  { type.map(a => {
+                          return <option value={a.questionType} key={a._id}>{a.questionType}</option> 
+                    })
+                  }
+                </Form.Control>
+              </Form.Group>
+  
+              <Form.Group as={Col}>
+                <Form.Label>Subject</Form.Label>
+                <Form.Control as="select" name="subject" onChange={(e) => onChangeClick(e)} >
+                  <option value="Choose a subject">Choose a subject/Course</option>
+                  { subject.map(a => {
+                          return <option value={a.subject} key={a._id}>{a.subject}</option> 
+                    })
+                  }
+                </Form.Control>
+              </Form.Group>
+             </Fragment>
+            ) :null }
+            
 
             <Form.Group as={Col}>
               <Form.Label>Year</Form.Label>
@@ -164,11 +211,39 @@ const ShowModal = () => {
                 }
               </Form.Control>
             </Form.Group>
-
+            { formState.meta.firstCategory === 'UNIVERSITY' ? 
+              ( 
+                <Fragment>
+                  <Form.Group as={Col}>
+                  <Form.Label>Name of School</Form.Label>
+                      <Form.Control type="text" name="school" onChange={(e) => onChangeClick(e)} />
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                  <Form.Label>Department</Form.Label>
+                      <Form.Control type="text" name="department" onChange={(e) => onChangeClick(e)} />
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                  <Form.Label>Faculty</Form.Label>
+                      <Form.Control type="text" name="faculty" onChange={(e) => onChangeClick(e)} />
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                  <Form.Label>Total Score</Form.Label>
+                      <Form.Control type="text" name="totalScore" onChange={(e) => onChangeClick(e)} />
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                  <Form.Label>Expected Pass Mark</Form.Label>
+                      <Form.Control type="text" name="expectedScore" onChange={(e) => onChangeClick(e)} />
+                  </Form.Group>
+                </Fragment>
+              )
+            : null }
+            
             <Form.Group as={Col}>
             <Form.Label>Number of Questions</Form.Label>
                 <Form.Control type="text" name="numberofquestions" onChange={(e) => onChangeClick(e)} />
             </Form.Group>
+
+            
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={() => { handleClose(); onSubmit() }} type="button">

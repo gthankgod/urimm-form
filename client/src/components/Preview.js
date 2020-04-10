@@ -22,8 +22,7 @@ const SuccessPage = (props) => {
 
     const subExamQuestion = e => {
         e.preventDefault();
-        submitExam();
-        props.history.push('/success');
+        submitExam().then(data => data.status ? props.history.push('/success') : props.history.push('/error'));        
       }
     return (
             <div className="mt-4">

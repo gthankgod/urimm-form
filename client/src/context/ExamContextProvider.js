@@ -9,6 +9,7 @@ const ExamContextProvider = (props) => {
         subject: '',
         year: '',
         questions: [],
+        meta: {},
         numberofquestions: '',
         currentquestion: '',
         current: '',
@@ -16,17 +17,15 @@ const ExamContextProvider = (props) => {
     });
 
     const submitExam = async () => {
-        let { category, questionType, subject, year, questions } = exam;
+        let { category, questionType, subject, year, questions,meta } = exam;
         let examRequest = { category, questionType, subject, year, questions };
         const res = await fetch ('https://urimmapp.herokuapp.com/questions', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(examRequest)
         });
-         await res.json();
-        // setExam({...exam, respMessage: data.status });
-        // console.log(exam.respMessage); 
-
+         let data = await res.json();
+        return data
     };
 
     const updateQuestion = (question) => {
