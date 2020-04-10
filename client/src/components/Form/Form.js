@@ -12,12 +12,14 @@ const FormField = (props) => {
     let [ Question, setQuestion ] = useState({
         question: '',
         image: '',
+        instruction: '',
         options: []
     });
 
 
     let [ error, setError ] = useState({ status : false, msg: "" });
     const addQuestion = (e) => {
+        if(e.target.name === 'instruction') { setQuestion({...Question, instruction: e.target.value })}
         if(e.target.name === 'question') { setQuestion({...Question, question: e.target.value })}
         if(e.target.name === 'image') { console.log(e.target.value) }
     }
@@ -76,12 +78,25 @@ const FormField = (props) => {
             <ProgressBar animated now={exam.currentquestion - exam.current} className="mt-4"/>
             {error.status ? <ToastMsg msg={error.msg}/> : null}
                 <FormDetails className="mt-4"/>
-                <Form.Row className="mt-4">
-                  <Form.Group as={Col}>
-                    <Form.Label>Question</Form.Label>
-                    <Form.Control as="textarea" rows="3" placeholder="Add question" name="question" value={Question.question} onChange={e => addQuestion(e)} />
-                  </Form.Group>
-                </Form.Row>
+                
+                <Form className="mt-4">
+                  <Row>
+                    <Col sm={12} className="mb-3">
+                      <Form.Group>
+                        <Form.Label>Instruction</Form.Label>
+                        <Form.Control type="text" placeholder="Add Instruction" name="instruction" value={Question.instruction} onChange={e => addQuestion(e)}/>
+                      </Form.Group>
+                    </Col>
+                    <Col sm={12} className="mb-3">
+                    <Form.Group>
+                      <Form.Label>Question</Form.Label>
+                      <Form.Control as="textarea" rows="3" placeholder="Add question" name="question" value={Question.question} onChange={e => addQuestion(e)} />
+                    </Form.Group>
+                    </Col>
+                  </Row>
+                 
+                 
+                </Form>
 
                   <Form.Group>
                     <Form.Label>Add Option</Form.Label>
@@ -93,7 +108,7 @@ const FormField = (props) => {
                         <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
                       </Col>
                       <Col sm={3}>
-                      <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} >
+                      <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} className="mb-3">
                       <option value="Select Option Status">Select status</option>
                       <option value="Correct">Correct</option>
                       <option value="Incorrect">Incorrect</option>

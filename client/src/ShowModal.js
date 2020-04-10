@@ -20,7 +20,9 @@ const ShowModal = () => {
           faculty: '',
           department: '',
           totalScore: '',
-          expectedScore: ''
+          expectedScore: '',
+          courseName: '',
+          lecturer: ''
         },
         numberofquestions: '',
         currentquestion : ''
@@ -77,11 +79,7 @@ const ShowModal = () => {
       setTimeout(() => setError({ status: false, msg: "" }), 5000);
       return
     }
-    if(!formState.questionType) {
-      setError({ status: true, msg: 'Question type is not properly formatted' });
-      setTimeout(() => setError({ status: false, msg: "" }), 5000);
-      return
-    }
+    
     if(!formState.year) {
       setError({ status: true, msg: 'Year is not properly formatted' });
       setTimeout(() => setError({ status: false, msg: "" }), 5000);
@@ -140,8 +138,16 @@ const ShowModal = () => {
         if(name === 'expectedScore') {
           setFormState({...formState, meta: {...formState.meta, expectedScore: value } })
         }
+
+        if(name === 'courseName') {
+          setFormState({...formState, meta: {...formState.meta, courseName: value } })
+        }
+
+        if(name === 'lecturer') {
+          setFormState({...formState, meta: {...formState.meta, lecturer: value } })
+        }
   }
-console.log(formState);
+
   const onSubmit = () => {
       setExam({...exam,...formState});
   }
@@ -215,16 +221,20 @@ console.log(formState);
               ( 
                 <Fragment>
                   <Form.Group as={Col}>
+                  <Form.Label>Course Name</Form.Label>
+                      <Form.Control type="text" name="courseName" onChange={(e) => onChangeClick(e)} />
+                  </Form.Group>
+                  <Form.Group as={Col}>
                   <Form.Label>Name of School</Form.Label>
                       <Form.Control type="text" name="school" onChange={(e) => onChangeClick(e)} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                  <Form.Label>Department</Form.Label>
-                      <Form.Control type="text" name="department" onChange={(e) => onChangeClick(e)} />
-                  </Form.Group>
-                  <Form.Group as={Col}>
                   <Form.Label>Faculty</Form.Label>
                       <Form.Control type="text" name="faculty" onChange={(e) => onChangeClick(e)} />
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                  <Form.Label>Department</Form.Label>
+                      <Form.Control type="text" name="department" onChange={(e) => onChangeClick(e)} />
                   </Form.Group>
                   <Form.Group as={Col}>
                   <Form.Label>Total Score</Form.Label>
@@ -233,6 +243,10 @@ console.log(formState);
                   <Form.Group as={Col}>
                   <Form.Label>Expected Pass Mark</Form.Label>
                       <Form.Control type="text" name="expectedScore" onChange={(e) => onChangeClick(e)} />
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                  <Form.Label>Name of Lecturer</Form.Label>
+                      <Form.Control type="text" name="lecturer" onChange={(e) => onChangeClick(e)} />
                   </Form.Group>
                 </Fragment>
               )
