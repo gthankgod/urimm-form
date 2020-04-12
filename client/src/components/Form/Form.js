@@ -60,12 +60,14 @@ const FormField = (props) => {
         setExam({...exam, questions: [...exam.questions, Question ], currentquestion: exam.currentquestion + exam.current });
         setQuestion({
           question: '',
+          instruction: '',
           image: '',
           options: []
       });
         setOptions([]);
     }
 
+    console.log(exam.questions);
     const subExamQuestion = e => {
       e.preventDefault();
       props.history.push('/preview');

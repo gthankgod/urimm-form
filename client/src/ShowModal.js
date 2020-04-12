@@ -11,10 +11,10 @@ const ShowModal = () => {
   let [type, setType ] =  useState([]);
   let [ formState, setFormState ] = useState({
         category: '',
-        questionType: '',
-        subject: '',
         year: '',
         meta: {
+          type: '',
+          subject: '',
           firstCategory: '',
           school: '',
           faculty: '',
@@ -28,10 +28,7 @@ const ShowModal = () => {
         currentquestion : ''
   });
 
-  let [ error, setError ] = useState({
-      status : false,
-      msg: ""
-  });
+  let [ error, setError ] = useState({ status : false, msg: "" });
 
   useEffect(() => { 
     (async function() {
@@ -100,7 +97,7 @@ const ShowModal = () => {
           }
 
         if(name === 'type') {
-          setFormState({...formState, questionType: value })
+          setFormState({...formState,meta: {...formState.meta, type: value } })
           }
 
         if(name === 'year') {
@@ -108,7 +105,7 @@ const ShowModal = () => {
          }
 
         if(name === 'subject') {
-            setFormState({...formState, subject: value })
+            setFormState({...formState, meta: {...formState.meta, subject: value } })
          }
 
          if(name === 'numberofquestions') {
@@ -196,7 +193,7 @@ const ShowModal = () => {
               <Form.Group as={Col}>
                 <Form.Label>Subject</Form.Label>
                 <Form.Control as="select" name="subject" onChange={(e) => onChangeClick(e)} >
-                  <option value="Choose a subject">Choose a subject/Course</option>
+                  <option value="Choose a subject">Choose a subject</option>
                   { subject.map(a => {
                           return <option value={a.subject} key={a._id}>{a.subject}</option> 
                     })
@@ -225,9 +222,15 @@ const ShowModal = () => {
                       <Form.Control type="text" name="courseName" onChange={(e) => onChangeClick(e)} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                  <Form.Label>Name of School</Form.Label>
-                      <Form.Control type="text" name="school" onChange={(e) => onChangeClick(e)} />
+                    <Form.Label>School</Form.Label>
+                      <Form.Control as="select" name="school" onChange={(e) => onChangeClick(e)} >
+                      <option value="Choose a school">Choose your school</option>
+                      <option value="UNIVERSITY OF IBADAN">UNIVERSITY OF IBADAN</option>
+                      <option value="UNIVERSITY OF NIGERIA, NSUKKA">UNIVERSITY OF NIGERIA,NSUKKA</option>
+                      <option value="UNIVERSITY OF ABUJA">UNIVERSITY OF ABUJA</option>
+                    </Form.Control>
                   </Form.Group>
+                  
                   <Form.Group as={Col}>
                   <Form.Label>Faculty</Form.Label>
                       <Form.Control type="text" name="faculty" onChange={(e) => onChangeClick(e)} />

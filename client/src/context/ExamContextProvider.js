@@ -5,8 +5,6 @@ export const ExamContext = createContext();
 const ExamContextProvider = (props) => {
     let [exam, setExam ] = useState({
         category: '',
-        questionType: '',
-        subject: '',
         year: '',
         questions: [],
         meta: {},
@@ -17,14 +15,24 @@ const ExamContextProvider = (props) => {
     });
 
     const submitExam = async () => {
-        let { category, questionType, subject, year, questions,meta } = exam;
-        let examRequest = { category, questionType, subject, year, questions };
+        let { category, year, questions,meta } = exam;
+        let examRequest = { category, year, questions, meta };
         const res = await fetch ('https://urimmapp.herokuapp.com/questions', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(examRequest)
         });
          let data = await res.json();
+         setExam({
+            category: '',
+            year: '',
+            questions: [],
+            meta: {},
+            numberofquestions: '',
+            currentquestion: '',
+            current: '',
+            respMessage: false
+        });
         return data
     };
 
@@ -34,7 +42,7 @@ const ExamContextProvider = (props) => {
              questions : exam.questions.map((quest, index) => index === question.id ? {...question} : {...quest})
             });
     }
-
+console.log(exam);
     return (
         <ExamContext.Provider value={{ exam, setExam, submitExam, updateQuestion}}>
             {props.children}
