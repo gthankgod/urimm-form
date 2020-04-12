@@ -42,7 +42,7 @@ const ExamContextProvider = (props) => {
              questions : exam.questions.map((quest, index) => index === question.id ? {...question} : {...quest})
             });
     }
-console.log(exam);
+
     return (
         <ExamContext.Provider value={{ exam, setExam, submitExam, updateQuestion}}>
             {props.children}

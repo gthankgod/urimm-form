@@ -4,8 +4,7 @@ import { ExamContext } from "../../context/ExamContextProvider";
 
 const EditExam = (props) => {
     const { updateQuestion } = useContext(ExamContext);
-    let { question, image, options } = props.location.state.question
-    console.log(props.location.state)
+    let { question, image, options } = props.location.state.question;
     let { id } = props.location.state;
 
     let [ Question, setQuestion ] = useState({
@@ -17,7 +16,7 @@ const EditExam = (props) => {
 
     const submitUpdate = () => {
         if(!Question.question) return;
-        updateQuestion(Question);
+        updateQuestion(Question,id);
         props.history.push("/preview");
     }
 
