@@ -43,8 +43,24 @@ const ExamContextProvider = (props) => {
             });
     }
 
+    // const checkStorage = () => {
+    //     if(exam.questions.length > 0) {
+    //         let exam = localStorage.getItem('exam');
+    //         setExam(exam);
+    //     }
+
+    //     if (exam.questions.length === 0) {
+    //         localStorage.removeItem('exam');
+    //     }
+    // }
+
+    // const saveToStorage = () => {
+    //     localStorage.removeItem('exam');
+    //     localStorage.setItem('exam', JSON.stringify(exam));
+    // }
+
     return (
-        <ExamContext.Provider value={{ exam, setExam, submitExam, updateQuestion}}>
+        <ExamContext.Provider value={{ exam, setExam, submitExam, updateQuestion }}>
             {props.children}
         </ExamContext.Provider>
     )

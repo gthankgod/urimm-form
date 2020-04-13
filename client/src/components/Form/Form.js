@@ -6,7 +6,7 @@ import FormDetails from './FormDetails'
 import ToastMsg from './ToastMsg'
 
 const FormField = (props) => {
-    let { exam,setExam } = useContext(ExamContext);
+    let { exam,setExam, saveToStorage } = useContext(ExamContext);
     let [optValue, setOptValue ] = useState({ value: '', explanation: '', status: "" });
     let [options, setOptions ] = useState([]);
     let [ Question, setQuestion ] = useState({
@@ -92,6 +92,7 @@ const FormField = (props) => {
         }
          
         setExam({...exam, questions: [...exam.questions, Question ], currentquestion: exam.currentquestion + exam.current });
+        // saveToStorage();
         setQuestion({
           question: '',
           instruction: '',

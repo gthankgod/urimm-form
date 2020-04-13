@@ -4,6 +4,7 @@ import { ExamContext } from './context/ExamContextProvider'
 import ToastMsg from './components/Form/ToastMsg';
 
 const ShowModal = () => {
+  // const { checkStorage } = useContext(ExamContext);
   const [show, setShow] = useState(true);
   let [category, setCategory ] =  useState([]);
   let [year, setYear ] =  useState([]);
@@ -28,6 +29,7 @@ const ShowModal = () => {
         currentquestion : ''
   });
 
+  // checkStorage();
   let [ error, setError ] = useState({ status : false, msg: "" });
 
   useEffect(() => { 
