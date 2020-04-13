@@ -135,18 +135,17 @@ const FormField = (props) => {
                 </Form>
 
                   <Form.Group>
-                    <Row>
                       {edit.status ? (
                         <Form.Group>
                           <Form.Label>Edit Option</Form.Label>
                             <Row>
-                              <Col sm={12} className="mb-3">
+                              <Col xs={12} className="mb-3">
                                 <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/>
                               </Col>
-                              <Col sm={9} className="mb-3">
+                              <Col xs={9} className="mb-3">
                                 <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
                               </Col>
-                              <Col sm={3}>
+                              <Col xs={3}>
                               <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} className="mb-3">
                               <option value="Select Option Status">Select status</option>
                               <option value="Correct">Correct</option>
@@ -154,7 +153,7 @@ const FormField = (props) => {
                               
                             </Form.Control>
                               </Col>
-                            <Col sm={3}>
+                            <Col xs={3}>
                               < Button variant="info btn-block" type="button" onClick={editOption}> Edit </Button>
                             </Col>
                             </Row>
@@ -163,13 +162,13 @@ const FormField = (props) => {
                         <Form.Group>
                           <Form.Label>Add Option</Form.Label>
                             <Row>
-                              <Col sm={12} className="mb-3">
+                              <Col xs={12} className="mb-3">
                                 <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/>
                               </Col>
-                              <Col sm={9} className="mb-3">
+                              <Col xs={9} className="mb-3">
                                 <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
                               </Col>
-                              <Col sm={3}>
+                              <Col xs={3}>
                               <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} className="mb-3">
                               <option value="Select Option Status">Select status</option>
                               <option value="Correct">Correct</option>
@@ -177,13 +176,12 @@ const FormField = (props) => {
                               
                             </Form.Control>
                               </Col>
-                            <Col sm={3}>
+                            <Col xs={3}>
                               < Button variant="secondary btn-block" type="button" onClick={onClickOptAdd}> Add </Button>
                             </Col>
                             </Row>
                         </Form.Group>
                         ) } 
-                      </Row>
                   </Form.Group>
                 
                 
