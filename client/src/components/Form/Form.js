@@ -142,10 +142,10 @@ const FormField = (props) => {
                               <Col xs={12} className="mb-3">
                                 <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/>
                               </Col>
-                              <Col xs={9} className="mb-3">
+                              <Col xs={8} className="mb-3">
                                 <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
                               </Col>
-                              <Col xs={3}>
+                              <Col xs={4}>
                               <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} className="mb-3">
                               <option value="Select Option Status">Select status</option>
                               <option value="Correct">Correct</option>
@@ -153,7 +153,7 @@ const FormField = (props) => {
                               
                             </Form.Control>
                               </Col>
-                            <Col xs={3}>
+                            <Col xs={6}>
                               < Button variant="info btn-block" type="button" onClick={editOption}> Edit </Button>
                             </Col>
                             </Row>
@@ -176,7 +176,7 @@ const FormField = (props) => {
                               
                             </Form.Control>
                               </Col>
-                            <Col xs={3}>
+                            <Col xs={6}>
                               < Button variant="secondary btn-block" type="button" onClick={onClickOptAdd}> Add </Button>
                             </Col>
                             </Row>
@@ -190,10 +190,10 @@ const FormField = (props) => {
                 { options.map((option, index) => {
                       return <li key={index} type="a">
                                 <Row>
-                                  <Col sm={4}>{option.value}</Col>
-                                  <Col sm={4}>{option.explanation}</Col>
-                                  <Col sm={2}>{option.status}</Col>
-                                  <Col sm={2}><i className="fa fa-pencil-square-o blue" onClick={e => editOptionClick(option,index)}></i></Col>
+                                  <Col xs={4}>{option.value}</Col>
+                                  <Col xs={4}>{option.explanation}</Col>
+                                  <Col xs={2}>{option.status}</Col>
+                                  <Col xs={2}><i className="fa fa-pencil-square-o blue" onClick={e => editOptionClick(option,index)}></i></Col>
                                 </Row>
                             </li>
                   })
