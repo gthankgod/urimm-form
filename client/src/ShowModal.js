@@ -9,6 +9,7 @@ const ShowModal = () => {
   let [year, setYear ] =  useState([]);
   let [subject, setSubject ] =  useState([]);
   let [type, setType ] =  useState([]);
+  let [ error, setError ] = useState({ status : false, msg: "" });
   let [ formState, setFormState ] = useState({
         category: '',
         year: '',
@@ -28,7 +29,6 @@ const ShowModal = () => {
         currentquestion : ''
   });
 
-  let [ error, setError ] = useState({ status : false, msg: "" });
 
   useEffect(() => { 
     (async function() {
