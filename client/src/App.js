@@ -18,9 +18,10 @@ function App() {
             <Switch>
               <Route exact path="/preview" component={Preview} />
               <Route exact path="/success" component={Success} />
+              <Route exact path="/form" component={Form} />
               <Route exact path="/edit/:edit" component={EditExam} />
               <Route exact path="/error" component={ErrorPage} />
-              <Route exact path="/" component={Form} />
+              <Route component={Form} />
             </Switch>
           </Container>
         </ExamContextProvider> 

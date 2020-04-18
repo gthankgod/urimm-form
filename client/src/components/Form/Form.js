@@ -106,116 +106,136 @@ const FormField = (props) => {
       props.history.push('/preview');
     }
 
+    const resetExam = () => {
+      setExam({
+        category: '',
+        year: '',
+        questions: [],
+        meta: {},
+        numberofquestions: '',
+        currentquestion: '',
+        current: '',
+        respMessage: false
+    })
+    }
+
     return (
         <Fragment>
           <ShowModal />
             <Form className="mt-4">
-            <ProgressBar animated now={exam.currentquestion - exam.current} className="mt-4"/>
-            {error.status ? <ToastMsg msg={error.msg}/> : null}
-                <FormDetails className="mt-4"/>
-                
-                <Form className="mt-4">
-                  <Row>
-                    <Col sm={12} className="mb-3">
-                      <Form.Group>
-                        <Form.Label>Instruction</Form.Label>
-                        <Form.Control type="text" placeholder="Add Instruction" name="instruction" value={Question.instruction} onChange={e => addQuestion(e)}/>
-                      </Form.Group>
-                    </Col>
-                    <Col sm={12} className="mb-3">
-                    <Form.Group>
-                      <Form.Label>Question</Form.Label>
-                      <Form.Control as="textarea" rows="3" placeholder="Add question" name="question" value={Question.question} onChange={e => addQuestion(e)} />
-                    </Form.Group>
-                    </Col>
-                  </Row>
-                 
-                 
-                </Form>
 
-                  <Form.Group>
-                      {edit.status ? (
-                        <Form.Group>
-                          <Form.Label>Edit Option</Form.Label>
-                            <Row>
-                              <Col xs={12} className="mb-3">
-                                <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/>
-                              </Col>
-                              <Col xs={8} className="mb-3">
-                                <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
-                              </Col>
-                              <Col xs={4}>
-                              <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} className="mb-3">
-                              <option value="Select Option Status">Select status</option>
-                              <option value="Correct">Correct</option>
-                              <option value="Incorrect">Incorrect</option>
-                              
-                            </Form.Control>
-                              </Col>
-                            <Col xs={6}>
-                              < Button variant="info btn-block" type="button" onClick={editOption}> Edit </Button>
-                            </Col>
-                            </Row>
-                       </Form.Group>
-                      ) : (
-                        <Form.Group>
-                          <Form.Label>Add Option</Form.Label>
-                            <Row>
-                              <Col xs={12} className="mb-3">
-                                <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/>
-                              </Col>
-                              <Col xs={9} className="mb-3">
-                                <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
-                              </Col>
-                              <Col xs={3}>
-                              <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} className="mb-3">
-                              <option value="Select Option Status">Select status</option>
-                              <option value="Correct">Correct</option>
-                              <option value="Incorrect">Incorrect</option>
-                              
-                            </Form.Control>
-                              </Col>
-                            <Col xs={6}>
-                              < Button variant="secondary btn-block" type="button" onClick={onClickOptAdd}> Add </Button>
-                            </Col>
-                            </Row>
-                        </Form.Group>
-                        ) } 
-                  </Form.Group>
-                
-                
-
-                <ol>
-                { options.map((option, index) => {
-                      return <li key={index} type="a">
-                                <Row>
-                                  <Col xs={4}>{option.value}</Col>
-                                  <Col xs={4}>{option.explanation}</Col>
-                                  <Col xs={2}>{option.status}</Col>
-                                  <Col xs={2}><i className="fa fa-pencil-square-o blue" onClick={e => editOptionClick(option,index)}></i></Col>
-                                </Row>
-                            </li>
-                  })
-                }</ol>
-                <Form.File 
-                  type="file"
-                  name="image"
-                  label="Add an image"
-                  className="mt-4"
-                  onChange={e => addQuestion(e)}
-                />
 
                   {exam.questions.length !== 100 / exam.current ? (
-                      <Button variant="primary btn-block" type="submit" className="mt-4" onClick={e => submitQuestion(e)}>
-                      Add Next Question
-                      </Button>
+                    <Fragment>
+                      <ProgressBar animated now={exam.currentquestion - exam.current} className="mt-4"/>
+                      {error.status ? <ToastMsg msg={error.msg}/> : null}
+                          <FormDetails className="mt-4"/>
+                          
+                          <Form className="mt-4">
+                            <Row>
+                              <Col sm={12} className="mb-3">
+                                <Form.Group>
+                                  <Form.Label>Instruction</Form.Label>
+                                  <Form.Control type="text" placeholder="Add Instruction" name="instruction" value={Question.instruction} onChange={e => addQuestion(e)}/>
+                                </Form.Group>
+                              </Col>
+                              <Col sm={12} className="mb-3">
+                              <Form.Group>
+                                <Form.Label>Question</Form.Label>
+                                <Form.Control as="textarea" rows="3" placeholder="Add question" name="question" value={Question.question} onChange={e => addQuestion(e)} />
+                              </Form.Group>
+                              </Col>
+                            </Row>
+                            
+                            
+                          </Form>
+          
+                            <Form.Group>
+                                {edit.status ? (
+                                  <Form.Group>
+                                    <Form.Label>Edit Option</Form.Label>
+                                      <Row>
+                                        <Col xs={12} className="mb-3">
+                                          <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/>
+                                        </Col>
+                                        <Col xs={8} className="mb-3">
+                                          <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
+                                        </Col>
+                                        <Col xs={4}>
+                                        <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} className="mb-3">
+                                        <option value="Select Option Status">Select status</option>
+                                        <option value="Correct">Correct</option>
+                                        <option value="Incorrect">Incorrect</option>
+                                        
+                                      </Form.Control>
+                                        </Col>
+                                      <Col xs={6}>
+                                        < Button variant="info btn-block" type="button" onClick={editOption}> Edit </Button>
+                                      </Col>
+                                      </Row>
+                                  </Form.Group>
+                                ) : (
+                                  <Form.Group>
+                                    <Form.Label>Add Option</Form.Label>
+                                      <Row>
+                                        <Col xs={12} className="mb-3">
+                                          <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/>
+                                        </Col>
+                                        <Col xs={9} className="mb-3">
+                                          <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
+                                        </Col>
+                                        <Col xs={3}>
+                                        <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} className="mb-3">
+                                        <option value="Select Option Status">Select status</option>
+                                        <option value="Correct">Correct</option>
+                                        <option value="Incorrect">Incorrect</option>
+                                        
+                                      </Form.Control>
+                                        </Col>
+                                      <Col xs={6}>
+                                        < Button variant="secondary btn-block" type="button" onClick={onClickOptAdd}> Add </Button>
+                                      </Col>
+                                      </Row>
+                                  </Form.Group>
+                                  ) } 
+                            </Form.Group>
+                          
+                          
+          
+                          <ol>
+                          { options.map((option, index) => {
+                                return <li key={index} type="a">
+                                          <Row>
+                                            <Col xs={4}>{option.value}</Col>
+                                            <Col xs={4}>{option.explanation}</Col>
+                                            <Col xs={2}>{option.status}</Col>
+                                            <Col xs={2}><i className="fa fa-pencil-square-o blue" onClick={e => editOptionClick(option,index)}></i></Col>
+                                          </Row>
+                                      </li>
+                            })
+                          }</ol>
+                          <Form.File 
+                            type="file"
+                            name="image"
+                            label="Add an image"
+                            className="mt-4"
+                            onChange={e => addQuestion(e)}
+                            />
+                        <Button variant="primary btn-block" type="submit" className="mt-4" onClick={e => submitQuestion(e)}>
+                        Add Next Question
+                        </Button>
+                      </Fragment>
                   ) : (
+                      <div className="container my-auto">
+                      <h2 className="lead">Thanks for uploading questions on the URIMM platform</h2>
                       <Button variant="success btn-block" type="submit" className="mt-4" onClick={e => subExamQuestion(e)}> Preview and Submit</Button>
-                  ) 
+                      </div>
+                    ) 
                   }
                   
                 
             </Form>
+            <Button variant="danger" type="submit" className="mt-4" onClick={() => resetExam()}> Reset All Questions</Button>
         </Fragment>
  
     )

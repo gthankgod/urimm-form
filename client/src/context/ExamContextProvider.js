@@ -1,9 +1,12 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 
 export const ExamContext = createContext();
 
+
+let storage = JSON.parse(localStorage.getItem('exam'));
+
 const ExamContextProvider = (props) => {
-    let [exam, setExam ] = useState({
+    let newstorage = storage && storage.questions.length > 0 ? storage : {
         category: '',
         year: '',
         questions: [],
@@ -12,7 +15,14 @@ const ExamContextProvider = (props) => {
         currentquestion: '',
         current: '',
         respMessage: false
-    });
+    };
+
+    let [exam, setExam ] = useState(newstorage);
+
+    useEffect(() => {
+        localStorage.setItem('exam', JSON.stringify(exam));
+    }, [exam]);
+
 
     const submitExam = async () => {
         let { category, year, questions,meta } = exam;

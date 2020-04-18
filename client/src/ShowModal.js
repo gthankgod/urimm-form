@@ -2,43 +2,70 @@ import React, { Fragment,useState, useContext, useEffect } from 'react'
 import { Modal, Button, Form, Col } from 'react-bootstrap'
 import { ExamContext } from './context/ExamContextProvider'
 import ToastMsg from './components/Form/ToastMsg';
+import { Redirect } from 'react-router-dom'
 
 const ShowModal = () => {
+  let { exam, setExam } = useContext(ExamContext);
+  let firststate = () => {
+    if(exam.questions.length > 0) {
+      return exam
+    }
+    return { category: '', year: '',
+      meta: {
+        type: '',
+        subject: '',
+        firstCategory: [],
+        secondCategory: [],
+        school: '',
+        faculty: '',
+        department: '',
+        totalScore: '',
+        expectedScore: '',
+        courseName: '',
+        lecturer: ''
+      },
+      numberofquestions: '',
+      currentquestion : ''
+    }
+  } 
   const [show, setShow] = useState(true);
   let [category, setCategory ] =  useState([]);
+  let [firstCategory, setFirstCategory ] =  useState([]);
+  let [secondCategory, setSecondCategory ] =  useState([]);
   let [year, setYear ] =  useState([]);
   let [subject, setSubject ] =  useState([]);
   let [type, setType ] =  useState([]);
-  let [ formState, setFormState ] = useState({
-        category: '',
-        year: '',
-        meta: {
-          type: '',
-          subject: '',
-          firstCategory: '',
-          school: '',
-          faculty: '',
-          department: '',
-          totalScore: '',
-          expectedScore: '',
-          courseName: '',
-          lecturer: ''
-        },
-        numberofquestions: '',
-        currentquestion : ''
-  });
+  let [ formState, setFormState ] = useState(firststate);
 
-  // checkStorage();
+ 
   let [ error, setError ] = useState({ status : false, msg: "" });
 
   useEffect(() => { 
     (async function() {
-      let res = await fetch('https://urimmapp.herokuapp.com/questions/category');
-      let category = await res.json();
-      let { data } = category;
-      setCategory(data)
+      let res = await fetch('https://urimmapp.herokuapp.com/user/categories');
+      let { data } = await res.json();
+      
+      setCategory(data);
     })() 
   }, []);
+
+  useEffect(() => { 
+    (async function () {
+      let res = await fetch(`https://urimmapp.herokuapp.com/user/categories?urimmCategory=${formState.category}`);
+      let { data } = await res.json();
+      
+      setFirstCategory(data);
+    })()  
+  }, [formState.category]);
+
+  useEffect(() => { 
+    (async function () {
+      let res = await fetch(`https://urimmapp.herokuapp.com/user/categories?urimmCategory=${formState.category}&firstCategory=${formState.meta.firstCategory}`);
+      let { data } = await res.json();
+      
+      setSecondCategory(data);
+    })()  
+  }, [formState.category,formState.meta.firstCategory]);
 
   useEffect(() => { 
     (async function () {
@@ -68,8 +95,6 @@ const ShowModal = () => {
     
   }, []);
 
-
-  let { exam, setExam } = useContext(ExamContext);
 
   const handleClose = () => {
     if(!formState.category) {
@@ -117,6 +142,10 @@ const ShowModal = () => {
             setFormState({...formState, meta: {...formState.meta, firstCategory: value } })
          }
 
+         if(name === 'secondCategory') {
+              setFormState({...formState, meta: {...formState.meta, secondCategory: value } })
+          }
+
        if(name === 'school') {
            setFormState({...formState, meta: {...formState.meta, school: value } })
          }
@@ -151,124 +180,142 @@ const ShowModal = () => {
   }
     return (
     <Fragment>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Set Exam Format</Modal.Title>
-        </Modal.Header>
-        {error.status ? <ToastMsg msg={error.msg}/> : null}
-        <Modal.Body>
-            <Form.Group as={Col}>
-              <Form.Label>Category</Form.Label>
-              <Form.Control as="select" name="category" onChange={(e) => onChangeClick(e)}>
-                <option value="Choose a category">Choose a category</option>
-                { category.map(a => {
-                       return <option value={a.category} key={a._id}>{a.category}</option> 
-                  })
-                }
-              </Form.Control>
-            </Form.Group>
-            { formState.category === 'STUDENT' ? (
-              <Form.Group as={Col}>
-              <Form.Label>Choose a subcategory</Form.Label>
-              <Form.Control as="select" name="firstCategory" onChange={(e) => onChangeClick(e)}>
-                <option value="Choose a firstcategory">Choose a sub Category</option>
-                <option value="UNIVERSITY">UNIVERSITY</option>
-                <option value="SECONDARY SCHOOL">SECONDARY SCHOOL</option>
-              </Form.Control>
-            </Form.Group>
-            ) : null }
-            { formState.meta.firstCategory === 'SECONDARY SCHOOL' ? (
-              <Fragment>
-                <Form.Group as={Col}>
-                <Form.Label>Exam Type</Form.Label>
-                <Form.Control as="select" name="type" onChange={(e) => onChangeClick(e)}>
-                  <option value="Choose the Exam type">Choose exam type</option>
-                  { type.map(a => {
-                          return <option value={a.questionType} key={a._id}>{a.questionType}</option> 
-                    })
-                  }
-                </Form.Control>
-              </Form.Group>
-  
-              <Form.Group as={Col}>
-                <Form.Label>Subject</Form.Label>
-                <Form.Control as="select" name="subject" onChange={(e) => onChangeClick(e)} >
-                  <option value="Choose a subject">Choose a subject</option>
-                  { subject.map(a => {
-                          return <option value={a.subject} key={a._id}>{a.subject}</option> 
-                    })
-                  }
-                </Form.Control>
-              </Form.Group>
-             </Fragment>
-            ) :null }
-            
-
-            <Form.Group as={Col}>
-              <Form.Label>Year</Form.Label>
-              <Form.Control as="select" name="year" onChange={(e) => onChangeClick(e)}>
-                <option value="Choose a year">Choose a year</option>
-                { year.map(a => {
-                       return <option value={a.year} key={a._id}>{a.year}</option> 
-                  })
-                }
-              </Form.Control>
-            </Form.Group>
-            { formState.meta.firstCategory === 'UNIVERSITY' ? 
-              ( 
-                <Fragment>
+      {exam.questions.length > 0 ? <Redirect to="/" /> : (
+        <Fragment>
+                <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Set Exam Format</Modal.Title>
+              </Modal.Header>
+              {error.status ? <ToastMsg msg={error.msg}/> : null}
+              <Modal.Body>
                   <Form.Group as={Col}>
-                  <Form.Label>Course Name</Form.Label>
-                      <Form.Control type="text" name="courseName" onChange={(e) => onChangeClick(e)} />
+                    <Form.Label>Category</Form.Label>
+                    <Form.Control as="select" name="category" onChange={(e) => onChangeClick(e)}>
+                      <option value="Choose a category">Choose a category</option>
+                      { category.map((a, i) => {
+                            return <option value={a.name} key={i}>{a.name}</option> 
+                        })
+                      }
+                    </Form.Control>
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label>School</Form.Label>
-                      <Form.Control as="select" name="school" onChange={(e) => onChangeClick(e)} >
-                      <option value="Choose a school">Choose your school</option>
-                      <option value="UNIVERSITY OF IBADAN">UNIVERSITY OF IBADAN</option>
-                      <option value="UNIVERSITY OF NIGERIA, NSUKKA">UNIVERSITY OF NIGERIA,NSUKKA</option>
-                      <option value="UNIVERSITY OF ABUJA">UNIVERSITY OF ABUJA</option>
+                    <Form.Control as="select" name="firstCategory" onChange={(e) => onChangeClick(e)}>
+                      <option value="Choose a first category">First category</option>
+                      { firstCategory.map((a, i) => {
+                            return <option value={a.name} key={i}>{a.name}</option> 
+                        })
+                      }
+                    </Form.Control>
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                    <Form.Control as="select" name="secondCategory" onChange={(e) => onChangeClick(e)}>
+                      <option value="Choose a second category">Second category</option>
+                      { secondCategory.length && secondCategory.map((a, i) => {
+                            return <option value={a.name} key={i}>{a.name}</option> 
+                        })
+                      }
                     </Form.Control>
                   </Form.Group>
                   
+                  { formState.category === 'PROFESSIONAL' ? (
+                    <Fragment>
+                      <Form.Group as={Col}>
+                        <Form.Label>Specialty/ Topic</Form.Label>
+                            <Form.Control type="text" name="specialty" onChange={(e) => onChangeClick(e)} />
+                        </Form.Group>
+                  </Fragment>
+                  ) :null }
+
+                  { formState.meta.firstCategory === 'SECONDARY SCHOOL' || formState.meta.firstCategory === 'SEEKING ADMISSION' ? (
+                    <Fragment>
+                      <Form.Group as={Col}>
+                      <Form.Label>Exam Type</Form.Label>
+                      <Form.Control as="select" name="type" onChange={(e) => onChangeClick(e)}>
+                        <option value="Choose the Exam type">Choose exam type</option>
+                        { type.map(a => {
+                                return <option value={a.questionType} key={a._id}>{a.questionType}</option> 
+                          })
+                        }
+                      </Form.Control>
+                    </Form.Group>
+        
+                    <Form.Group as={Col}>
+                      <Form.Control as="select" name="subject" onChange={(e) => onChangeClick(e)} >
+                        <option value="Choose a subject">Choose a subject</option>
+                        { subject.map(a => {
+                                return <option value={a.subject} key={a._id}>{a.subject}</option> 
+                          })
+                        }
+                      </Form.Control>
+                    </Form.Group>
+                  </Fragment>
+                  ) :null }
+                  
+
                   <Form.Group as={Col}>
-                  <Form.Label>Faculty</Form.Label>
-                      <Form.Control type="text" name="faculty" onChange={(e) => onChangeClick(e)} />
+                    <Form.Control as="select" name="year" onChange={(e) => onChangeClick(e)}>
+                      <option value="Choose a year">Choose a year</option>
+                      { year.map(a => {
+                            return <option value={a.year} key={a._id}>{a.year}</option> 
+                        })
+                      }
+                    </Form.Control>
                   </Form.Group>
-                  <Form.Group as={Col}>
-                  <Form.Label>Department</Form.Label>
-                      <Form.Control type="text" name="department" onChange={(e) => onChangeClick(e)} />
-                  </Form.Group>
-                  <Form.Group as={Col}>
-                  <Form.Label>Total Score</Form.Label>
-                      <Form.Control type="text" name="totalScore" onChange={(e) => onChangeClick(e)} />
-                  </Form.Group>
+                  { formState.meta.firstCategory === 'UNIVERSITY' ? 
+                    ( 
+                      <Fragment>
+                        <Form.Group as={Col}>
+                        <Form.Label>Course Name</Form.Label>
+                            <Form.Control type="text" name="courseName" onChange={(e) => onChangeClick(e)} />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Control as="select" name="school" onChange={(e) => onChangeClick(e)} >
+                            <option value="Choose a school">Choose your school</option>
+                            <option value="UNIVERSITY OF IBADAN">UNIVERSITY OF IBADAN</option>
+                            <option value="UNIVERSITY OF NIGERIA, NSUKKA">UNIVERSITY OF NIGERIA,NSUKKA</option>
+                            <option value="UNIVERSITY OF ABUJA">UNIVERSITY OF ABUJA</option>
+                          </Form.Control>
+                        </Form.Group>
+                        
+                        <Form.Group as={Col}>
+                        <Form.Label>Faculty</Form.Label>
+                            <Form.Control type="text" name="faculty" onChange={(e) => onChangeClick(e)} />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                        <Form.Label>Department</Form.Label>
+                            <Form.Control type="text" name="department" onChange={(e) => onChangeClick(e)} />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                        <Form.Label>Total Score</Form.Label>
+                            <Form.Control type="text" name="totalScore" onChange={(e) => onChangeClick(e)} />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                        <Form.Label>Name of Lecturer</Form.Label>
+                            <Form.Control type="text" name="lecturer" onChange={(e) => onChangeClick(e)} />
+                        </Form.Group>
+                      </Fragment>
+                    )
+                  : null }
                   <Form.Group as={Col}>
                   <Form.Label>Expected Pass Mark</Form.Label>
                       <Form.Control type="text" name="expectedScore" onChange={(e) => onChangeClick(e)} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                  <Form.Label>Name of Lecturer</Form.Label>
-                      <Form.Control type="text" name="lecturer" onChange={(e) => onChangeClick(e)} />
+                  <Form.Label>Number of Questions</Form.Label>
+                      <Form.Control type="text" name="numberofquestions" onChange={(e) => onChangeClick(e)} />
                   </Form.Group>
-                </Fragment>
-              )
-            : null }
-            
-            <Form.Group as={Col}>
-            <Form.Label>Number of Questions</Form.Label>
-                <Form.Control type="text" name="numberofquestions" onChange={(e) => onChangeClick(e)} />
-            </Form.Group>
 
-            
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={() => { handleClose(); onSubmit() }} type="button">
-            Add Exam Details
-          </Button>
-        </Modal.Footer>
-      </Modal>
+                  
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="primary" onClick={() => { handleClose(); onSubmit() }} type="button">
+                  Add Exam Details
+                </Button>
+              </Modal.Footer>
+            </Modal>
+        </Fragment>
+      )}
+
     </Fragment>
   );
 }

@@ -7,7 +7,7 @@ const ShowNavBar = () => {
         <Fragment>
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>
-                    <Link to="/"> Urimm Question Bank </Link>
+                    <Link to="/" className="text-white"> Urimm Question Bank </Link>
                 </Navbar.Brand>
             </Navbar>
         </Fragment>

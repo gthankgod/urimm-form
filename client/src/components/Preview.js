@@ -22,7 +22,17 @@ const SuccessPage = (props) => {
 
     const subExamQuestion = e => {
         e.preventDefault();
-        submitExam().then(data => data.status ? props.history.push('/success') : props.history.push('/error'));        
+        submitExam().then(data => data.status ? props.history.push('/success') : props.history.push('/error')); 
+        localStorage.setItem('exam', {
+            category: '',
+            year: '',
+            questions: [],
+            meta: {},
+            numberofquestions: '',
+            currentquestion: '',
+            current: '',
+            respMessage: false
+        })       
       }
     return (
             <div className="mt-4">
