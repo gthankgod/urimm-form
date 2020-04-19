@@ -186,7 +186,7 @@ const ShowModal = () => {
           }
 
           if(formState.meta.firstCategory === 'UNIVERSITY') {
-            let { firstCategory,secondCategory, courseName, faculty, department, totalScore, lecturer } = formState.meta;
+            let { firstCategory,secondCategory,school, courseName, faculty, department, totalScore, expectedScore, lecturer } = formState.meta;
             formState.meta = { firstCategory, secondCategory,school, courseName, faculty, department, totalScore,expectedScore, lecturer }
           }
 
