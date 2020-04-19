@@ -9,6 +9,9 @@ const ShowNavBar = () => {
                 <Navbar.Brand>
                     <Link to="/" className="text-white"> Urimm Question Bank </Link>
                 </Navbar.Brand>
+                <Navbar.Brand>
+                    <Link to="/exams" className="text-white"> Previously Submitted Exams</Link>
+                </Navbar.Brand>
             </Navbar>
         </Fragment>
     )
