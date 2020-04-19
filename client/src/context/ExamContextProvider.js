@@ -26,6 +26,7 @@ const ExamContextProvider = (props) => {
 
     const submitExam = async () => {
         let { category, year, questions,meta } = exam;
+
         let examRequest = { category, year, questions, meta };
         const res = await fetch ('https://urimmapp.herokuapp.com/questions', {
             method: 'POST',

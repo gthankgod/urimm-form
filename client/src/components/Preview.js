@@ -5,7 +5,7 @@ import { ExamContext } from '../context/ExamContextProvider'
 import FormDetails from './Form/FormDetails'
 
 const SuccessPage = (props) => {
-    let { exam, submitExam } = useContext(ExamContext);
+    let { exam, submitExam,setExam } = useContext(ExamContext);
     let displayexam = (
         exam.questions.map((question, i) => {
            return (<ListGroup.Item key={i} className="mb-3">
@@ -23,7 +23,7 @@ const SuccessPage = (props) => {
     const subExamQuestion = e => {
         e.preventDefault();
         submitExam().then(data => data.status ? props.history.push('/success') : props.history.push('/error')); 
-        localStorage.setItem('exam', {
+        setExam({
             category: '',
             year: '',
             questions: [],

@@ -9,15 +9,17 @@ const FormDetails = () => {
         <Fragment>
             <Card>
                 <Card.Body>
-                    <Card.Title>{exam.subject}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{exam.category}</Card.Subtitle>
+                    <Card.Subtitle className="mb-2 text-muted">Subject/Course :{exam.meta.subject || exam.meta.courseName || exam.meta.specialty}</Card.Subtitle>
+
                     <Row>
                         <Col>
-                            <Card.Text> Type: { exam.type}</Card.Text>
-                            <Card.Text> Year: { exam.year }</Card.Text>
+                            <Card.Text> First category: { exam.meta.firstCategory }</Card.Text>
+                            <Card.Text> Year: { exam.year}</Card.Text>
                         </Col>
                         <Col>
                              <Card.Text>Total number of questions : { exam.numberofquestions}</Card.Text>
+                             <Card.Text>Percentage Completed : { exam.currentquestion - exam.current}%</Card.Text>
                              {/* <Card.Text> Number of questions remaining : { exam.currentquestion / exam.numberofquestions }</Card.Text> */}
                         </Col>
                     </Row>

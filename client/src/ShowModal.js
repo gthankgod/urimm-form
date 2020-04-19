@@ -22,7 +22,8 @@ const ShowModal = () => {
         totalScore: '',
         expectedScore: '',
         courseName: '',
-        lecturer: ''
+        lecturer: '',
+        specialty: ''
       },
       numberofquestions: '',
       currentquestion : ''
@@ -173,10 +174,28 @@ const ShowModal = () => {
         if(name === 'lecturer') {
           setFormState({...formState, meta: {...formState.meta, lecturer: value } })
         }
+        if(name === 'specialty') {
+          setFormState({...formState, meta: {...formState.meta, specialty: value } })
+        }
   }
 
   const onSubmit = () => {
-      setExam({...exam,...formState});
+          if(formState.meta.firstCategory === 'SECONDARY SCHOOL' || formState.meta.firstCategory === 'SEEKING ADMISSION') {
+            let { firstCategory,secondCategory, type, subject, expectedScore } = formState.meta;
+            formState.meta = { firstCategory,secondCategory, type, subject, expectedScore }
+          }
+
+          if(formState.meta.firstCategory === 'UNIVERSITY') {
+            let { firstCategory,secondCategory, courseName, faculty, department, totalScore, lecturer } = formState.meta;
+            formState.meta = { firstCategory, secondCategory,school, courseName, faculty, department, totalScore,expectedScore, lecturer }
+          }
+
+          if(formState.category === 'PROFESSIONAL') {
+            let { firstCategory, secondCategory, specialty, expectedScore } = formState.meta;
+            formState.meta = { firstCategory, secondCategory, specialty, expectedScore }
+          }
+         
+      setExam({...exam,...formState});    
   }
     return (
     <Fragment>
