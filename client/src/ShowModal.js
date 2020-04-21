@@ -73,6 +73,7 @@ const ShowModal = () => {
       let res = await fetch('https://urimmapp.herokuapp.com/questions/type');
       let type = await res.json();
       let { data } = type;
+      data = [ "GENERAL",...data ];
       setType(data)
     })()  
   }, []);
@@ -255,7 +256,6 @@ const ShowModal = () => {
                                 return <option value={a.questionType} key={a._id}>{a.questionType}</option> 
                           })
                         }
-                        <option value="GENERAL">GENERAL</option>
                       </Form.Control>
                     </Form.Group>
         
