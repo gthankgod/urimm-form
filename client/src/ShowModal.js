@@ -74,6 +74,7 @@ const ShowModal = () => {
       let type = await res.json();
       let { data } = type;
       data = [ "GENERAL",...data ];
+      console.log(data);
       setType(data)
     })()  
   }, []);
