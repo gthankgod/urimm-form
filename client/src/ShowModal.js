@@ -251,6 +251,7 @@ const ShowModal = () => {
                       <Form.Label>Exam Type</Form.Label>
                       <Form.Control as="select" name="type" onChange={(e) => onChangeClick(e)}>
                         <option value="Choose the Exam type">Choose exam type</option>
+                        <option value="GENERAL">GENERAL</option>
                         { type.map(a => {
                                 return <option value={a.questionType} key={a._id}>{a.questionType}</option> 
                           })
