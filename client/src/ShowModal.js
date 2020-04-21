@@ -229,17 +229,15 @@ const ShowModal = () => {
                   <Form.Group as={Col}>
                     <Form.Control as="select" name="secondCategory" onChange={(e) => onChangeClick(e)}>
                       <option value="Choose a second category">Second category</option>
-                      { secondCategory.length > 0 && secondCategory.map((a, i) => {
-                            if(formState.meta.firstCategory === 'SECONDARY SCHOOL' || formState.meta.firstCategory === 'SEEKING ADMISSION'){
-                              return (
+                      { formState.meta.firstCategory === 'SECONDARY SCHOOL' || formState.meta.firstCategory === 'SEEKING ADMISSION' ? 
+                             (
                                 <Fragment>
-                                  <option value={a.name} key={i}>{a.name}</option> 
+                                  {secondCategory.length > 0 && secondCategory.map((a, i) => <option value={a.name} key={i}>{a.name}</option> )}
                                   <option value="GENERAL">GENERAL</option>
                                 </Fragment>
                               )
-                            }
-                            return <option value={a.name} key={i}>{a.name}</option> 
-                        })
+                            :
+                              secondCategory.length > 0 && secondCategory.map((a, i) => <option value={a.name} key={i}>{a.name}</option> )
                       }
                     </Form.Control>
                   </Form.Group>
