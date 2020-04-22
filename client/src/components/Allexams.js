@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Button } from 'react-bootstrap'
+import { Card, Button, ListGroup } from 'react-bootstrap'
 
 const Allexams = () => {
-    let [ exam, setExam ] = useState([]);
+    let [ exams, setExam ] = useState([]);
+    let [ show, setshow ] = useState(false);
 
     useEffect(() => { 
         (async function() {
@@ -16,16 +17,34 @@ const Allexams = () => {
       console.log(exam);
     return (
         <div className="mt-4">
-           <Card>
-            <Card.Header as="h5">Featured</Card.Header>
-            <Card.Body>
-                <Card.Title>Special title treatment</Card.Title>
-                <Card.Text>
-                With supporting text below as a natural lead-in to additional content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-            </Card> 
+            { exams.map(exam => {
+                <Card>
+                    <Card.Header as="h5">{exam.meta.subject || exam.meta.courseName}</Card.Header>
+                    <Card.Body>
+                        <Card.Title>{exam.year}</Card.Title>
+                        <Card.Text>{exam.meta.type || exam.meta.school}</Card.Text>
+                        <Card.Text>{exam.meta.department || exam.meta.secondCategory}</Card.Text>
+                        <Button variant="primary" onClick={() => setshow(!show)}>View Questions</Button>
+                    </Card.Body>
+                </Card> 
+                    { show ? (
+                        exam.questions.map((question, ind) => {
+                            return (
+                                    <ListGroup.Item key={ind} className="mb-3">
+                                    <Row className="mb-3">
+                                        <Col xs={12}>{question}</Col>
+                                    </Row>
+                                        <ListGroup>
+                                            {question.options.map((option, index )=> <ListGroup.Item key={index}>{option.value} </ListGroup.Item>)}
+                                        </ListGroup>
+                                    </ListGroup.Item>
+                            )
+                        })
+                        
+                    ) : null }
+                })
+            }
+           
         </div>
     )
 }
