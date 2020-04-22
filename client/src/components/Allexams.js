@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Button, ListGroup } from 'react-bootstrap'
+import { Card, Button, ListGroup, Row } from 'react-bootstrap'
 
 const Allexams = () => {
     let [ exams, setExam ] = useState([]);
