@@ -20,9 +20,10 @@ const Allexams = () => {
                 return( <Card key={i} className="mb-3">
                     <Card.Header as="h5">{exam.meta.subject || exam.meta.courseName || exam.meta.firstCategory}</Card.Header>
                     <Card.Body>
-                        <Card.Title>{exam.year}</Card.Title>
-                        <Card.Text>{exam.meta.firstCategory}</Card.Text>
+                        <Card.Title>Year: {exam.year}</Card.Title>
+                        <Card.Text>Category: {exam.category}</Card.Text>
                         <Card.Text>{exam.meta.department || exam.meta.secondCategory}</Card.Text>
+                        <Card.Text>{exam.meta.firstCategory}</Card.Text>
                         <Button variant="primary" onClick={() => setshow(!show)}>View Questions</Button>
                     </Card.Body>
                     { show ? (
