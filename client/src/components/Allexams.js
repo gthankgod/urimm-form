@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Button, ListGroup, Row } from 'react-bootstrap'
+import { Card, Button, ListGroup, Row ,Col} from 'react-bootstrap'
 
 const Allexams = () => {
     let [ exams, setExam ] = useState([]);
@@ -14,25 +14,23 @@ const Allexams = () => {
         })() 
       }, []);
 
-      console.log(exam);
     return (
         <div className="mt-4">
-            { exams.map(exam => {
-                <Card>
-                    <Card.Header as="h5">{exam.meta.subject || exam.meta.courseName}</Card.Header>
+            { exams.map((exam, i) => {
+                return( <Card key={i} className="mb-3">
+                    <Card.Header as="h5">{exam.meta.subject || exam.meta.courseName || exam.meta.firstCategory}</Card.Header>
                     <Card.Body>
                         <Card.Title>{exam.year}</Card.Title>
-                        <Card.Text>{exam.meta.type || exam.meta.school}</Card.Text>
+                        <Card.Text>{exam.meta.firstCategory}</Card.Text>
                         <Card.Text>{exam.meta.department || exam.meta.secondCategory}</Card.Text>
                         <Button variant="primary" onClick={() => setshow(!show)}>View Questions</Button>
                     </Card.Body>
-                </Card> 
                     { show ? (
                         exam.questions.map((question, ind) => {
                             return (
                                     <ListGroup.Item key={ind} className="mb-3">
                                     <Row className="mb-3">
-                                        <Col xs={12}>{question}</Col>
+                                        <Col xs={12}>{question.question}</Col>
                                     </Row>
                                         <ListGroup>
                                             {question.options.map((option, index )=> <ListGroup.Item key={index}>{option.value} </ListGroup.Item>)}
@@ -42,6 +40,7 @@ const Allexams = () => {
                         })
                         
                     ) : null }
+                 </Card> )  
                 })
             }
            
