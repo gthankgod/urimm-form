@@ -9,7 +9,7 @@ const Allexams = () => {
         (async function() {
           let res = await fetch('https://urimmapp.herokuapp.com/questions');
           let { data } = await res.json();
-          
+          console.log(data.reverse());
           setExam(data);
         })() 
       }, []);
