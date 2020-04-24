@@ -22,6 +22,7 @@ const ShowModal = () => {
         totalScore: '',
         expectedScore: '',
         courseName: '',
+        courseTitle: '',
         lecturer: '',
         specialty: ''
       },
@@ -132,7 +133,7 @@ const ShowModal = () => {
          }
 
         if(name === 'subject') {
-            setFormState({...formState, meta: {...formState.meta, subject: value } })
+            setFormState({...formState, meta: {...formState.meta, subject: value, courseTitle: value } })
          }
 
          if(name === 'numberofquestions') {
@@ -168,7 +169,7 @@ const ShowModal = () => {
         }
 
         if(name === 'courseName') {
-          setFormState({...formState, meta: {...formState.meta, courseName: value } })
+          setFormState({...formState, meta: {...formState.meta, courseName: value,courseTitle: value } })
         }
 
         if(name === 'lecturer') {
@@ -182,17 +183,17 @@ const ShowModal = () => {
   const onSubmit = () => {
           if(formState.meta.firstCategory === 'SECONDARY SCHOOL' || formState.meta.firstCategory === 'SEEKING ADMISSION') {
             let { firstCategory,secondCategory, type, subject, expectedScore } = formState.meta;
-            formState.meta = { firstCategory,secondCategory, type, subject, expectedScore }
+            formState.meta = { firstCategory,secondCategory, type, subject,courseTitle, expectedScore }
           }
 
           if(formState.meta.firstCategory === 'UNIVERSITY') {
             let { firstCategory,secondCategory,school, courseName, faculty, department, totalScore, expectedScore, lecturer } = formState.meta;
-            formState.meta = { firstCategory, secondCategory,school, courseName, faculty, department, totalScore,expectedScore, lecturer }
+            formState.meta = { firstCategory, secondCategory,school, courseName,courseTitle, faculty, department, totalScore,expectedScore, lecturer }
           }
 
           if(formState.category === 'PROFESSIONAL') {
             let { firstCategory, secondCategory, specialty, expectedScore } = formState.meta;
-            formState.meta = { firstCategory, secondCategory, specialty, expectedScore }
+            formState.meta = { firstCategory, secondCategory,courseTitle, specialty, expectedScore }
           }
          
       setExam({...exam,...formState});    
