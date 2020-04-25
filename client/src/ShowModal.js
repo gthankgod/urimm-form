@@ -182,17 +182,17 @@ const ShowModal = () => {
 
   const onSubmit = () => {
           if(formState.meta.firstCategory === 'SECONDARY SCHOOL' || formState.meta.firstCategory === 'SEEKING ADMISSION') {
-            let { firstCategory,secondCategory, type, subject, expectedScore } = formState.meta;
+            let { firstCategory,secondCategory, type, subject, expectedScore, courseTitle } = formState.meta;
             formState.meta = { firstCategory,secondCategory, type, subject,courseTitle, expectedScore }
           }
 
           if(formState.meta.firstCategory === 'UNIVERSITY') {
-            let { firstCategory,secondCategory,school, courseName, faculty, department, totalScore, expectedScore, lecturer } = formState.meta;
+            let { firstCategory,secondCategory,school, courseName, faculty, department, totalScore, expectedScore,courseTitle, lecturer } = formState.meta;
             formState.meta = { firstCategory, secondCategory,school, courseName,courseTitle, faculty, department, totalScore,expectedScore, lecturer }
           }
 
           if(formState.category === 'PROFESSIONAL') {
-            let { firstCategory, secondCategory, specialty, expectedScore } = formState.meta;
+            let { firstCategory, secondCategory, specialty, expectedScore, courseTitle } = formState.meta;
             formState.meta = { firstCategory, secondCategory,courseTitle, specialty, expectedScore }
           }
          
