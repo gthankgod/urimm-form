@@ -146,14 +146,16 @@ const FormField = (props) => {
                                 <Form.Control as="textarea" rows="3" placeholder="Add question" name="question" value={Question.question} onChange={e => addQuestion(e)} />
                               </Form.Group>
                               </Col>
-                              <Editor
-                                value=''
-                                init={{
-                                  height: 500,
-                                  menubar: false
-                                }}
-                                onEditorChange={console.log(123)}
-                              />
+                              <Col sm={12} className="mb-3">
+                                <Editor
+                                  value={Question.question}
+                                  init={{
+                                    height: 500,
+                                    menubar: false
+                                  }}
+                                  onEditorChange={e => console.log(e)}
+                                />
+                              </Col>                         
                             </Row>
                             
                             
