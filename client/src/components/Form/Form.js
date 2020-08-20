@@ -107,6 +107,10 @@ const FormField = (props) => {
       props.history.push('/preview');
     }
 
+    const handleEditorChange = (content, editor) => {
+      console.log('Content was updated:', content);
+    }
+
     const resetExam = () => {
       setExam({
         category: '',
@@ -153,7 +157,7 @@ const FormField = (props) => {
                                     height: 500,
                                     menubar: false
                                   }}
-                                  onChange={e => { console.log(e.target.value); console.log(e.target.name)}}
+                                  onEditorChange={console.log(content, editor)}
                                 />
                               </Col>                         
                             </Row>
