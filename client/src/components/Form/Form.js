@@ -157,7 +157,7 @@ const FormField = (props) => {
                                     height: 500,
                                     menubar: false
                                   }}
-                                  onEditorChange={console.log(content, editor)}
+                                  onEditorChange={(event, editor) => console.log(event, editor)}
                                 />
                               </Col>                         
                             </Row>
