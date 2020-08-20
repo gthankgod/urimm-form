@@ -4,6 +4,7 @@ import { ExamContext } from '../../context/ExamContextProvider'
 import ShowModal from '../../ShowModal';
 import FormDetails from './FormDetails'
 import ToastMsg from './ToastMsg'
+import { Editor } from "@tinymce/tinymce-react";
 
 const FormField = (props) => {
     let { exam,setExam } = useContext(ExamContext);
@@ -145,6 +146,14 @@ const FormField = (props) => {
                                 <Form.Control as="textarea" rows="3" placeholder="Add question" name="question" value={Question.question} onChange={e => addQuestion(e)} />
                               </Form.Group>
                               </Col>
+                              <Editor
+                                value=''
+                                init={{
+                                  height: 500,
+                                  menubar: false
+                                }}
+                                onEditorChange={console.log(123)}
+                              />
                             </Row>
                             
                             
