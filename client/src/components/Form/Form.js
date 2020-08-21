@@ -108,7 +108,7 @@ const FormField = (props) => {
     }
 
     const handleEditorChange = e => {
-      console.log('Content was updated:', e.target.getContent());
+      console.log('Content was updated:', e.target.getContent({ format: 'text' }));
       console.log('Content was updated:', e);
       // setQuestion({...Question, question: content })
     }
