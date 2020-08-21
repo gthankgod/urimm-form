@@ -159,7 +159,7 @@ const FormField = (props) => {
                                     height: 500,
                                     menubar: false
                                   }}
-                                  onEditorChange={e => handleEditorChange(e)}
+                                  onChange={e => handleEditorChange(e)}
                                 />
                               </Col>                         
                             </Row>
