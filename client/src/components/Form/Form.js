@@ -109,9 +109,9 @@ const FormField = (props) => {
     let [test, setTest] = useState('');
 
     const handleEditorChange = e => {
-      console.log('Content was updated:', e.target.getContent());
-      console.log('Content was updated:', e.target.getContent({ format: 'text' }));
-      setTest(e.target.getContent({ format: 'text' }))
+      console.log('Content was updated:', e);
+      // console.log('Content was updated:', e.target.getContent({ format: 'text' }));
+      setTest(e)
       // console.log('Content was updated:', e);
       // setQuestion({...Question, question: content })
     }
