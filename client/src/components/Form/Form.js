@@ -106,12 +106,18 @@ const FormField = (props) => {
       e.preventDefault();
       props.history.push('/preview');
     }
+    let [test, setTest] = useState('');
 
     const handleEditorChange = e => {
       console.log('Content was updated:', e.target.getContent({ format: 'text' }));
-      console.log('Content was updated:', e);
+      setTest(e.target.getContent({ format: 'text' }))
+      // console.log('Content was updated:', e);
       // setQuestion({...Question, question: content })
     }
+
+    console.log(test);
+
+    useEffect(() => handleEditorChange, [test]);
 
     const resetExam = () => {
       setExam({
