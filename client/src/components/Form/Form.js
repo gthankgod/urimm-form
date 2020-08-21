@@ -168,7 +168,9 @@ const FormField = (props) => {
                                   value={Question.question}
                                   init={{
                                     height: 500,
-                                    menubar: false
+                                    menubar: "insert",
+                                    plugins:"charmap",
+                                    toolbar:"charmap"
                                   }}
                                   outputFormat='text'
                                   onEditorChange={e => handleEditorChange(e)}
