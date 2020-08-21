@@ -109,6 +109,7 @@ const FormField = (props) => {
     let [test, setTest] = useState('');
 
     const handleEditorChange = e => {
+      console.log('Content was updated:', e.target.getContent());
       console.log('Content was updated:', e.target.getContent({ format: 'text' }));
       setTest(e.target.getContent({ format: 'text' }))
       // console.log('Content was updated:', e);
@@ -117,7 +118,14 @@ const FormField = (props) => {
 
     console.log(test);
 
-    useEffect(e => handleEditorChange(e), [test]);
+    // useEffect(() => {
+    //   const handleEditorChange = e => {
+    //     console.log('Content was updated:', e.target.getContent({ format: 'text' }));
+    //     setTest(e.target.getContent({ format: 'text' }))
+    //     // console.log('Content was updated:', e);
+    //     // setQuestion({...Question, question: content })
+    //   }
+    // }, [test]);
 
     const resetExam = () => {
       setExam({
@@ -165,7 +173,8 @@ const FormField = (props) => {
                                     height: 500,
                                     menubar: false
                                   }}
-                                  onChange={e => handleEditorChange(e)}
+                                  outputFormat='text'
+                                  onEditorChange={e => handleEditorChange(e)}
                                 />
                               </Col>                         
                             </Row>
