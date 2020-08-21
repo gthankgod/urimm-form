@@ -117,7 +117,7 @@ const FormField = (props) => {
 
     console.log(test);
 
-    useEffect(() => handleEditorChange, [test]);
+    // useEffect(() => handleEditorChange, [test]);
 
     const resetExam = () => {
       setExam({
