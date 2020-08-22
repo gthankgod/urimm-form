@@ -36,9 +36,31 @@ const EditExam = (props) => {
                             <li className="mb-3" key={index}>
                             <Row>
                                 <Col sm={12} className="mb-2">
+                                <Editor
+                                    value={Question.question}
+                                    init={{
+                                    height: 100,
+                                    menubar: "insert",
+                                    plugins:"charmap",
+                                    toolbar:"charmap"
+                                    }}
+                                    outputFormat='text'
+                                    onEditorChange={e => handleQuestionChange(e)}
+                                />
                                      <Form.Control type="text" value={(Question.options.find((o,i) => i === index )).value} onChange={e => setQuestion({...Question, options: options.map((o , i) => i === index ? {...o, value : e.target.value} : {...o} )})} />
                                 </Col>
                                 <Col sm={8} className="mb-2">
+                                <Editor
+                                    value={Question.question}
+                                    init={{
+                                    height: 100,
+                                    menubar: "insert",
+                                    plugins:"charmap",
+                                    toolbar:"charmap"
+                                    }}
+                                    outputFormat='text'
+                                    onEditorChange={e => handleQuestionChange(e)}
+                                />
                                      <Form.Control type="text" value={(Question.options.find((o,i) => i === index )).explanation} onChange={e => setQuestion({...Question, options: options.map((o , i) => i === index ? {...o, explanation : e.target.value} : {...o} )})} />
                                 </Col>
                                 <Col sm={4} className="mb-2">

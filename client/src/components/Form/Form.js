@@ -108,12 +108,12 @@ const FormField = (props) => {
     }
     // let [test, setTest] = useState('');
 
-    const handleEditorChange = e => {
-      // console.log('Content was updated:', e);
-      setQuestion({...Question, question: e })
-    }
+    const handleQuestionChange = e =>  setQuestion({...Question, question: e })
+    const handleOptTextChange = e =>  setOptValue({ ...optValue, value: e})
+    const handleOptExpChange = e =>  setOptValue({ ...optValue, explanation: e})
 
-    console.log(Question.question);
+
+    // console.log(Question.question);
 
     // useEffect(() => {
     //   const handleEditorChange = e => {
@@ -157,12 +157,12 @@ const FormField = (props) => {
                                   <Form.Control type="text" placeholder="Add Instruction" name="instruction" value={Question.instruction} onChange={e => addQuestion(e)}/>
                                 </Form.Group>
                               </Col>
-                              <Col sm={12} className="mb-3">
+                              {/* <Col sm={12} className="mb-3">
                               <Form.Group>
                                 <Form.Label>Question</Form.Label>
                                 <Form.Control as="textarea" rows="3" placeholder="Add question" name="question" value={Question.question} onChange={e => addQuestion(e)} />
                               </Form.Group>
-                              </Col>
+                              </Col> */}
                               <Col sm={12} className="mb-3">
                                 <Editor
                                   value={Question.question}
@@ -173,7 +173,7 @@ const FormField = (props) => {
                                     toolbar:"charmap"
                                   }}
                                   outputFormat='text'
-                                  onEditorChange={e => handleEditorChange(e)}
+                                  onEditorChange={e => handleQuestionChange(e)}
                                 />
                               </Col>                         
                             </Row>
@@ -187,10 +187,32 @@ const FormField = (props) => {
                                     <Form.Label>Edit Option</Form.Label>
                                       <Row>
                                         <Col xs={12} className="mb-3">
-                                          <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/>
+                                          {/* <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/> */}
+                                          <Editor
+                                              value={optValue.value}
+                                              init={{
+                                                height: 100,
+                                                menubar: "insert",
+                                                plugins:"charmap",
+                                                toolbar:"charmap"
+                                              }}
+                                              outputFormat='text'
+                                              onEditorChange={e => handleOptTextChange(e)}
+                                            />
                                         </Col>
                                         <Col xs={8} className="mb-3">
-                                          <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
+                                          {/* <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/> */}
+                                          <Editor
+                                              value={optValue.explanation}
+                                              init={{
+                                                height: 100,
+                                                menubar: "insert",
+                                                plugins:"charmap",
+                                                toolbar:"charmap"
+                                              }}
+                                              outputFormat='text'
+                                              onEditorChange={e => handleOptExpChange(e)}
+                                            />
                                         </Col>
                                         <Col xs={4}>
                                         <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} className="mb-3">
@@ -210,10 +232,32 @@ const FormField = (props) => {
                                     <Form.Label>Add Option</Form.Label>
                                       <Row>
                                         <Col xs={12} className="mb-3">
-                                          <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/>
+                                          {/* <Form.Control type="text" placeholder="Add option" name="optionText" value={optValue.value} onChange={e => onClickOpt(e)}/> */}
+                                          <Editor
+                                              value={optValue.value}
+                                              init={{
+                                                height: 100,
+                                                menubar: "insert",
+                                                plugins:"charmap",
+                                                toolbar:"charmap"
+                                              }}
+                                              outputFormat='text'
+                                              onEditorChange={e => handleOptTextChange(e)}
+                                            />
                                         </Col>
                                         <Col xs={9} className="mb-3">
-                                          <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/>
+                                          {/* <Form.Control type="text" placeholder="Explanation" name="optionExp" value={optValue.explanation} onChange={e => onClickOpt(e)}/> */}
+                                          <Editor
+                                              value={optValue.explanation}
+                                              init={{
+                                                height: 100,
+                                                menubar: "insert",
+                                                plugins:"charmap",
+                                                toolbar:"charmap"
+                                              }}
+                                              outputFormat='text'
+                                              onEditorChange={e => handleOptExpChange(e)}
+                                            />
                                         </Col>
                                         <Col xs={3}>
                                         <Form.Control as="select" value={optValue.status} name="optStatus" onChange={(e) => onClickOpt(e)} className="mb-3">
