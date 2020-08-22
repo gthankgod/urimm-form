@@ -1,6 +1,8 @@
 import React, { useState, Fragment, useContext } from 'react'
 import { Row, Form, Col, Button } from 'react-bootstrap'
 import { ExamContext } from "../../context/ExamContextProvider";
+import { Editor } from "@tinymce/tinymce-react";
+
 
 const EditExam = (props) => {
     const { updateQuestion } = useContext(ExamContext);
@@ -27,6 +29,18 @@ const EditExam = (props) => {
                   <Form.Group as={Col}>
                     <Form.Label>Question {id + 1}</Form.Label>
                     <Form.Control type="text" placeholder="Add question" value={Question.question} onChange={e => setQuestion({...Question, question: e.target.value})} />
+                    <Editor
+                        value={Question.question}
+                        onEditorChange={e => setQuestion({...Question, question: e})}
+                        init={{
+                        height: 100,
+                        menubar: "insert",
+                        plugins:"charmap",
+                        toolbar:"charmap"
+                        }}
+                        outputFormat='text'
+                        // onEditorChange={e => handleQuestionChange(e)}
+                    />
                   </Form.Group>
                 </Form.Row>
 
@@ -37,7 +51,8 @@ const EditExam = (props) => {
                             <Row>
                                 <Col sm={12} className="mb-2">
                                 <Editor
-                                    value={Question.question}
+                                    value={(Question.options.find((o,i) => i === index )).value}
+                                    onEditorChange={e => setQuestion({...Question, options: options.map((o , i) => i === index ? {...o, value : e} : {...o} )})} j
                                     init={{
                                     height: 100,
                                     menubar: "insert",
@@ -45,13 +60,14 @@ const EditExam = (props) => {
                                     toolbar:"charmap"
                                     }}
                                     outputFormat='text'
-                                    onEditorChange={e => handleQuestionChange(e)}
+                                    // onEditorChange={e => handleQuestionChange(e)}
                                 />
                                      <Form.Control type="text" value={(Question.options.find((o,i) => i === index )).value} onChange={e => setQuestion({...Question, options: options.map((o , i) => i === index ? {...o, value : e.target.value} : {...o} )})} />
                                 </Col>
                                 <Col sm={8} className="mb-2">
                                 <Editor
-                                    value={Question.question}
+                                    value={(Question.options.find((o,i) => i === index )).explanation} 
+                                    onEditorChange={e => setQuestion({...Question, options: options.map((o , i) => i === index ? {...o, explanation : e} : {...o} )})}
                                     init={{
                                     height: 100,
                                     menubar: "insert",
@@ -59,7 +75,7 @@ const EditExam = (props) => {
                                     toolbar:"charmap"
                                     }}
                                     outputFormat='text'
-                                    onEditorChange={e => handleQuestionChange(e)}
+                                    // onEditorChange={e => handleQuestionChange(e)}
                                 />
                                      <Form.Control type="text" value={(Question.options.find((o,i) => i === index )).explanation} onChange={e => setQuestion({...Question, options: options.map((o , i) => i === index ? {...o, explanation : e.target.value} : {...o} )})} />
                                 </Col>
