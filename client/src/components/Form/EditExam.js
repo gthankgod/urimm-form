@@ -39,6 +39,7 @@ const EditExam = (props) => {
                         toolbar:"charmap"
                         }}
                         outputFormat='text'
+                        apiKey="t186yc3sqinva9jhkeafztnd3wkn0p936nuv6ufx1cfxdlds"
                         // onEditorChange={e => handleQuestionChange(e)}
                     />
                   </Form.Group>
@@ -60,6 +61,7 @@ const EditExam = (props) => {
                                     toolbar:"charmap"
                                     }}
                                     outputFormat='text'
+                                    apiKey="t186yc3sqinva9jhkeafztnd3wkn0p936nuv6ufx1cfxdlds"
                                     // onEditorChange={e => handleQuestionChange(e)}
                                 />
                                      <Form.Control type="text" value={(Question.options.find((o,i) => i === index )).value} onChange={e => setQuestion({...Question, options: options.map((o , i) => i === index ? {...o, value : e.target.value} : {...o} )})} />
@@ -75,6 +77,7 @@ const EditExam = (props) => {
                                     toolbar:"charmap"
                                     }}
                                     outputFormat='text'
+                                    apiKey="t186yc3sqinva9jhkeafztnd3wkn0p936nuv6ufx1cfxdlds"
                                     // onEditorChange={e => handleQuestionChange(e)}
                                 />
                                      <Form.Control type="text" value={(Question.options.find((o,i) => i === index )).explanation} onChange={e => setQuestion({...Question, options: options.map((o , i) => i === index ? {...o, explanation : e.target.value} : {...o} )})} />

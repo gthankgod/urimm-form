@@ -5,6 +5,7 @@ import ShowModal from '../../ShowModal';
 import FormDetails from './FormDetails'
 import ToastMsg from './ToastMsg'
 import { Editor } from "@tinymce/tinymce-react";
+// import config from 'config'
 
 const FormField = (props) => {
     let { exam,setExam } = useContext(ExamContext);
@@ -174,6 +175,7 @@ const FormField = (props) => {
                                   }}
                                   outputFormat='text'
                                   onEditorChange={e => handleQuestionChange(e)}
+                                  apiKey="t186yc3sqinva9jhkeafztnd3wkn0p936nuv6ufx1cfxdlds"
                                 />
                               </Col>                         
                             </Row>
@@ -191,13 +193,14 @@ const FormField = (props) => {
                                           <Editor
                                               value={optValue.value}
                                               init={{
-                                                height: 100,
+                                                height: 300,
                                                 menubar: "insert",
                                                 plugins:"charmap",
                                                 toolbar:"charmap"
                                               }}
                                               outputFormat='text'
                                               onEditorChange={e => handleOptTextChange(e)}
+                                              apiKey="t186yc3sqinva9jhkeafztnd3wkn0p936nuv6ufx1cfxdlds"
                                             />
                                         </Col>
                                         <Col xs={8} className="mb-3">
@@ -205,13 +208,14 @@ const FormField = (props) => {
                                           <Editor
                                               value={optValue.explanation}
                                               init={{
-                                                height: 100,
+                                                height: 300,
                                                 menubar: "insert",
                                                 plugins:"charmap",
                                                 toolbar:"charmap"
                                               }}
                                               outputFormat='text'
                                               onEditorChange={e => handleOptExpChange(e)}
+                                              apiKey="t186yc3sqinva9jhkeafztnd3wkn0p936nuv6ufx1cfxdlds"
                                             />
                                         </Col>
                                         <Col xs={4}>
@@ -236,13 +240,14 @@ const FormField = (props) => {
                                           <Editor
                                               value={optValue.value}
                                               init={{
-                                                height: 100,
+                                                height: 300,
                                                 menubar: "insert",
                                                 plugins:"charmap",
                                                 toolbar:"charmap"
                                               }}
                                               outputFormat='text'
                                               onEditorChange={e => handleOptTextChange(e)}
+                                              apiKey="t186yc3sqinva9jhkeafztnd3wkn0p936nuv6ufx1cfxdlds"
                                             />
                                         </Col>
                                         <Col xs={9} className="mb-3">
@@ -250,13 +255,14 @@ const FormField = (props) => {
                                           <Editor
                                               value={optValue.explanation}
                                               init={{
-                                                height: 100,
+                                                height: 300,
                                                 menubar: "insert",
                                                 plugins:"charmap",
                                                 toolbar:"charmap"
                                               }}
                                               outputFormat='text'
                                               onEditorChange={e => handleOptExpChange(e)}
+                                              apiKey="t186yc3sqinva9jhkeafztnd3wkn0p936nuv6ufx1cfxdlds"
                                             />
                                         </Col>
                                         <Col xs={3}>
