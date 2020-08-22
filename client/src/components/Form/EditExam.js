@@ -22,6 +22,8 @@ const EditExam = (props) => {
         props.history.push("/preview");
     }
 
+    console.log(Question);
+
     return (
         <Fragment>
             <h2 className="mt-3">Preview Questions</h2>

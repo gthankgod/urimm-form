@@ -138,6 +138,8 @@ const FormField = (props) => {
     })
     }
 
+    console.log(Question);
+
     return (
         <Fragment>
           <ShowModal />
@@ -165,11 +167,12 @@ const FormField = (props) => {
                               </Form.Group>
                               </Col> */}
                               <Col sm={12} className="mb-3">
+                                <h4>Question</h4>
                                 <Editor
                                   value={Question.question}
                                   init={{
                                     height: 500,
-                                    menubar: "insert",
+                                    menubar: false,
                                     plugins:"charmap",
                                     toolbar:"charmap"
                                   }}
