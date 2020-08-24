@@ -34,7 +34,7 @@ const FormField = (props) => {
             try {
               const imgRes =  await fetch('https://urimmapp.herokuapp.com/user/image',{
                                   method: 'POST',
-                                  body: JSON.stringify(formData)
+                                  body: formData
                               });
               
             const imgData = await imgRes.json();
@@ -300,7 +300,7 @@ const FormField = (props) => {
                                       </li>
                             })
                           }</ol>
-                          <Form.File 
+                          <input 
                             type="file"
                             name="image"
                             label="Add an image"
