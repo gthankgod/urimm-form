@@ -28,8 +28,6 @@ const FormField = (props) => {
         if(e.target.name === 'question') { setQuestion({...Question, question: e.target.value })}
         if(e.target.name === 'image') { 
             const formData = new FormData();
-            console.log(e.target);
-            console.log(e.target.files[0]);
             formData.append('image', e.target.files[0]);
             try {
               const imgRes =  await fetch('https://urimmapp.herokuapp.com/user/image',{
