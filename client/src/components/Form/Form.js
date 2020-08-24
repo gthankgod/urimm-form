@@ -29,13 +29,13 @@ const FormField = (props) => {
         if(e.target.name === 'image') { 
             const formData = new FormData();
             console.log(e.target);
-            console.log(e);
+            console.log(e.target.files[0]);
             formData.append('image', e.target.files[0]);
             try {
               const imgRes =  await fetch('https://urimmapp.herokuapp.com/questions/image',{
                                   headers: { 'content-type': 'multipart/form-data' },
                                   method: 'POST',
-                                  body: JSON.stringify(formData)
+                                  body: formData
                               });
               
             const imgData = await imgRes.json();
