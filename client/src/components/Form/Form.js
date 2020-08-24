@@ -301,7 +301,7 @@ const FormField = (props) => {
                                       </li>
                             })
                           }</ol>
-                          <Form.File 
+                          <input 
                             type="file"
                             name="image"
                             label="Add an image"
