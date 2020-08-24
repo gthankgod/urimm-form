@@ -35,7 +35,7 @@ const FormField = (props) => {
               const imgRes =  await fetch('https://urimmapp.herokuapp.com/questions/image',{
                                   // headers: { 'content-type': 'multipart/form-data' },
                                   method: 'POST',
-                                  body: formData
+                                  body: JSON.stringify(formData)
                               });
               
             const imgData = await imgRes.json();
