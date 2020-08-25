@@ -37,6 +37,8 @@ const FormField = (props) => {
               
             const imgData = await imgRes.json();
             console.log(imgData);
+            setQuestion({...Question, image: imgData.data })
+
             } catch (error) {
               console.log(error)
             }
