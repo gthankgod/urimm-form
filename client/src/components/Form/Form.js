@@ -30,7 +30,7 @@ const FormField = (props) => {
             const formData = new FormData();
             formData.append('image', e.target.files[0]);
             try {
-              const imgRes =  await fetch('https://urimmapp.herokuapp.com/user/image',{
+              const imgRes =  await fetch('https://urimmapp.herokuapp.com/questions/image',{
                                   method: 'POST',
                                   body: formData
                               });
