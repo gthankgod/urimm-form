@@ -305,6 +305,7 @@ const FormField = (props) => {
                             label="Add an image"
                             className="mt-4"
                             onChange={e => addQuestion(e)}
+                            value={Question.image}
                             />
                         <Button variant="primary btn-block" type="submit" className="mt-4" onClick={e => submitQuestion(e)}>
                         Add Next Question
