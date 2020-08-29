@@ -37,7 +37,6 @@ const FormField = (props) => {
               
             const imgData = await imgRes.json();
             setQuestion({...Question, image: imgData.data })
-
             } catch (error) {
               console.log(error)
             }
@@ -305,7 +304,7 @@ const FormField = (props) => {
                             label="Add an image"
                             className="mt-4"
                             onChange={e => addQuestion(e)}
-                            value={Question.image}
+                            onClick={e => (e.target.value = null)}
                             />
                         <Button variant="primary btn-block" type="submit" className="mt-4" onClick={e => submitQuestion(e)}>
                         Add Next Question
